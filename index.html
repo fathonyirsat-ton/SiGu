@@ -10,7 +10,7 @@
     <!-- ======================================================================= -->
     <script>
         const CONFIG = {
-            API_URL: 'https://script.google.com/macros/s/AKfycbz1_T2OgTwyvbhl_ZtFgzMUcm71pe1hA4d0q9779Et3qptO19FzrEv2SXtez9sQYyuc/exec',
+            API_URL: 'https://script.google.com/macros/s/AKfycbzDxYPNm2N893dVJBPi9C06zLpavvRLf98-3wReVxGJI1nextgkjIoopmQkP1hnnUyc/exec',
             LOGO_URL: 'https://lh3.googleusercontent.com/d/1BqLTq6mgStBOtbV8eWUwgmuvlsqjsqtx',
             QRIS_URL: 'https://drive.google.com/thumbnail?id=1zlxMNvEt7a3Pos_Zt8qq6hUtleI2UTj_&sz=w1000'
         };
@@ -144,14 +144,21 @@
                 <div class="hero-mesh py-8 sm:py-10 md:py-16 text-white text-center px-4 relative overflow-hidden no-print flex items-center justify-center">
                     <!-- Ornamen Matematika Transparan di Beranda -->
                     <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
-                        <i data-lucide="calculator" class="absolute top-10 left-[10%] w-24 h-24 animate-float" style="animation-delay: 0s;"></i>
-                        <i data-lucide="infinity" class="absolute top-32 right-[15%] w-32 h-32 animate-float" style="animation-delay: 1.5s;"></i>
-                        <i data-lucide="divide" class="absolute bottom-20 left-[20%] w-20 h-20 animate-float" style="animation-delay: 2.5s;"></i>
-                        <i data-lucide="percent" class="absolute top-1/3 left-[30%] w-16 h-16 animate-float" style="animation-delay: 0.5s;"></i>
-                        <i data-lucide="hash" class="absolute bottom-1/3 right-[25%] w-24 h-24 animate-float" style="animation-delay: 2s;"></i>
-                        <i data-lucide="plus" class="absolute top-1/2 right-[10%] w-16 h-16 animate-float" style="animation-delay: 1s;"></i>
-                        <i data-lucide="minus" class="absolute bottom-10 right-[20%] w-14 h-14 animate-float" style="animation-delay: 3s;"></i>
-                    </div>
+-                        <i data-lucide="calculator" class="absolute top-10 left-[10%] w-24 h-24 animate-float" style="animation-delay: 0s;"></i>
+-                        <i data-lucide="infinity" class="absolute top-32 right-[15%] w-32 h-32 animate-float" style="animation-delay: 1.5s;"></i>
+-                        <i data-lucide="divide" class="absolute bottom-20 left-[20%] w-20 h-20 animate-float" style="animation-delay: 2.5s;"></i>
+-                        <i data-lucide="percent" class="absolute top-1/3 left-[30%] w-16 h-16 animate-float" style="animation-delay: 0.5s;"></i>
+-                        <i data-lucide="hash" class="absolute bottom-1/3 right-[25%] w-24 h-24 animate-float" style="animation-delay: 2s;"></i>
+-                        <i data-lucide="plus" class="absolute top-1/2 right-[10%] w-16 h-16 animate-float" style="animation-delay: 1s;"></i>
+-                        <i data-lucide="minus" class="absolute bottom-10 right-[20%] w-14 h-14 animate-float" style="animation-delay: 3s;"></i>
++                        <i data-lucide="book-open" class="absolute top-10 left-[10%] w-24 h-24 animate-float" style="animation-delay: 0s;"></i>
++                        <i data-lucide="flask-conical" class="absolute top-32 right-[15%] w-32 h-32 animate-float" style="animation-delay: 1.5s;"></i>
++                        <i data-lucide="globe" class="absolute bottom-20 left-[20%] w-20 h-20 animate-float" style="animation-delay: 2.5s;"></i>
++                        <i data-lucide="graduation-cap" class="absolute top-1/3 left-[30%] w-16 h-16 animate-float" style="animation-delay: 0.5s;"></i>
++                        <i data-lucide="palette" class="absolute bottom-1/3 right-[25%] w-24 h-24 animate-float" style="animation-delay: 2s;"></i>
++                        <i data-lucide="laptop" class="absolute top-1/2 right-[10%] w-16 h-16 animate-float" style="animation-delay: 1s;"></i>
++                        <i data-lucide="pencil" class="absolute bottom-10 right-[20%] w-14 h-14 animate-float" style="animation-delay: 3s;"></i>
+                     </div>
 
                     <div class="absolute w-[800px] h-[800px] bg-purple-500/30 rounded-full blur-[100px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse-soft"></div>
                     <div class="relative z-10 space-y-4 md:space-y-6 max-w-4xl mx-auto text-center">
@@ -300,8 +307,8 @@
                                     <input type="text" id="reg-nisn" maxlength="10" required placeholder="Contoh: 0087987979" class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold focus:ring-2 focus:ring-blue-600 transition hover:border-blue-300">
                                 </div>
                                 <div>
-                                    <label class="text-[10px] font-black uppercase mb-2 block text-slate-400 tracking-widest">Sekolah Asal *</label>
-                                    <input type="text" id="reg-sekolah" list="sekolah-list" autocomplete="off" required placeholder="Ketik untuk mencari sekolah..." class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl outline-none font-black italic focus:ring-2 focus:ring-blue-600 transition hover:border-blue-300 uppercase">
+                                    <label class="text-[10px] font-black uppercase mb-2 block text-slate-400 tracking-widest">Instansi *</label>
+                                    <input type="text" id="reg-sekolah" list="sekolah-list" autocomplete="off" required placeholder="Ketik untuk mencari instansi..." class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl outline-none font-black italic focus:ring-2 focus:ring-blue-600 transition hover:border-blue-300 uppercase">
                                 </div>
                                 
                                 <!-- FIELD BARU: TINGKAT KELAS -->
@@ -398,11 +405,11 @@
                     <aside class="w-full lg:w-72 bg-[#10141d] p-6 lg:p-8 shadow-2xl sticky top-0 max-h-screen lg:h-screen overflow-y-auto flex flex-col no-print z-[60] transition-all duration-300">
                         <div class="absolute top-0 left-0 w-full h-full bg-blue-600/10 pointer-events-none blur-[80px]"></div>
                         
-                        <!-- Ornamen Matematika Transparan di Sidebar -->
+                        <!-- Ornamen Pendidikan Transparan di Sidebar -->
                         <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-5">
-                            <i data-lucide="calculator" class="absolute top-20 left-4 w-10 h-10 animate-float" style="animation-delay: 0s;"></i>
-                            <i data-lucide="divide" class="absolute bottom-32 right-4 w-12 h-12 animate-float" style="animation-delay: 1.5s;"></i>
-                            <i data-lucide="percent" class="absolute top-1/2 left-8 w-8 h-8 animate-float" style="animation-delay: 0.5s;"></i>
+                            <i data-lucide="book" class="absolute top-20 left-4 w-10 h-10 animate-float" style="animation-delay: 0s;"></i>
+                            <i data-lucide="microscope" class="absolute bottom-32 right-4 w-12 h-12 animate-float" style="animation-delay: 1.5s;"></i>
+                            <i data-lucide="compass" class="absolute top-1/2 left-8 w-8 h-8 animate-float" style="animation-delay: 0.5s;"></i>
                         </div>
 
                         <!-- HEADER PANEL & TOMBOL TOGGLE -->
@@ -423,7 +430,7 @@
                         
                         <!-- WADAH MENU (HIDDEN DEFAULT on Mobile, FLEX on Desktop) -->
                         <div id="sidebar-nav-container" class="hidden lg:flex flex-col mt-8 relative z-10 flex-1 animate-slide-right">
-                            <p class="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-bold mb-3 pl-6 text-left">Navigasi Panel</p>
+                            <p class="hidden text-[9px] text-slate-500 uppercase tracking-[0.2em] font-bold mb-3 pl-6 text-left">Navigasi Panel</p>
                             <nav id="sidebar-nav" class="flex-1 space-y-1 text-left font-bold"></nav>
                         </div>
                     </aside>
@@ -652,9 +659,9 @@
                     <input type="text" id="guru-name" required placeholder="Contoh: Budi Santoso, S.Pd." class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-purple-600 outline-none transition hover:border-purple-300 text-slate-700 uppercase">
                 </div>
                 <div>
-                    <label class="text-[10px] uppercase font-black text-slate-500 block mb-1.5 ml-1">Sekolah Asal *</label>
+                    <label class="text-[10px] uppercase font-black text-slate-500 block mb-1.5 ml-1">Instansi *</label>
                     <select id="guru-sekolah" required class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-purple-600 outline-none transition hover:border-purple-300 text-slate-700 uppercase cursor-pointer">
-                        <option value="" disabled selected>PILIH SEKOLAH ASAL</option>
+                        <option value="" disabled selected>PILIH INSTANSI</option>
                     </select>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
@@ -713,7 +720,7 @@
                         <input type="text" id="form-peserta-nisn" required maxlength="10" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-600 outline-none transition uppercase text-slate-700">
                     </div>
                     <div>
-                        <label class="text-[10px] uppercase font-black text-slate-500 block mb-1.5 ml-1">Sekolah Asal *</label>
+                        <label class="text-[10px] uppercase font-black text-slate-500 block mb-1.5 ml-1">Instansi *</label>
                         <input type="text" id="form-peserta-sekolah" list="sekolah-list" autocomplete="off" required class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-600 outline-none transition uppercase text-slate-700">
                     </div>
                     <div>
@@ -805,7 +812,9 @@
             if (saved) {
                 try { 
                     globalMenuSettings = JSON.parse(saved); 
-                    if (typeof globalMenuSettings === 'string') globalMenuSettings = JSON.parse(globalMenuSettings);
+                    while (typeof globalMenuSettings === 'string') {
+                        globalMenuSettings = JSON.parse(globalMenuSettings);
+                    }
                 } catch(e) { globalMenuSettings = null; }
             }
             
@@ -837,13 +846,19 @@
         }
 
         function checkMenuPermission(menuId, role) {
+            if (!role) return false;
+            // Normalisasi role
+            role = role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
+            
             // Fallback keamanan: Pastikan Admin tidak pernah terkunci dari menu dasbor & pengaturan
             if (role === 'Admin' && (menuId === 'menu-admin-dashboard' || menuId === 'menu-settings' || menuId === 'menu-laporan')) return true;
             
             if (!globalMenuSettings) initDefaultMenuSettings();
             
             try {
-                if (typeof globalMenuSettings === 'string') globalMenuSettings = JSON.parse(globalMenuSettings);
+                while (typeof globalMenuSettings === 'string') {
+                    globalMenuSettings = JSON.parse(globalMenuSettings);
+                }
                 if (globalMenuSettings && globalMenuSettings[menuId] && globalMenuSettings[menuId][role] !== undefined) {
                     let val = globalMenuSettings[menuId][role];
                     return val === true || val === 'true' || val === 'TRUE';
@@ -1260,7 +1275,7 @@
             
             const validSchools = Array.from(document.querySelectorAll('#sekolah-list option')).map(opt => opt.value.toUpperCase());
             if (validSchools.length > 0 && !validSchools.includes(sekolah.toUpperCase())) {
-                return showAlert('Ralat', 'Pilihan Sekolah Asal tidak valid. Silakan pilih dari daftar yang tersedia. Jika nama sekolah Anda belum ada, silakan konfirmasi ke WA Admin.', 'error');
+                return showAlert('Ralat', 'Pilihan Instansi tidak valid. Silakan pilih dari daftar yang tersedia. Jika nama instansi Anda belum ada, silakan konfirmasi ke WA Admin.', 'error');
             }
 
             closeRegisterGuru();
@@ -1297,7 +1312,7 @@
             
             const validSchools = Array.from(document.querySelectorAll('#sekolah-list option')).map(opt => opt.value.toUpperCase());
             if (validSchools.length > 0 && !validSchools.includes(s.toUpperCase())) {
-                return showAlert('Ralat', 'Pilihan Sekolah Asal tidak valid. Silakan pilih dari daftar yang tersedia. Jika nama sekolah Anda belum ada, silakan konfirmasi ke WA Admin.', 'error');
+                return showAlert('Ralat', 'Pilihan Instansi tidak valid. Silakan pilih dari daftar yang tersedia. Jika nama instansi Anda belum ada, silakan konfirmasi ke WA Admin.', 'error');
             }
 
             setLoading(true); try {
@@ -1339,6 +1354,7 @@
 
         function renderDashboardLayout() {
             const side = document.getElementById('sidebar-nav'), u = currentUser; if(!u) return;
+            u.role = u.role ? u.role.charAt(0).toUpperCase() + u.role.slice(1).toLowerCase() : 'Siswa';
             document.getElementById('user-display-name').textContent = u.name; 
             document.getElementById('user-display-role').textContent = u.role; 
             
@@ -1379,21 +1395,20 @@
             let menuHtml = '';
 
             // Bagian Menu Panel Admin / Pendamping
-            const adminMenus = ['menu-admin-dashboard', 'menu-petunjuk', 'menu-jadwal-siswa', 'menu-peserta', 'menu-profil', 'menu-jadwal', 'menu-cetak-kartu', 'menu-denah', 'menu-token', 'menu-laporan', 'menu-bap', 'menu-cetak-sertifikat', 'menu-sertifikat', 'menu-links', 'menu-settings'];
+            const adminMenus = ['menu-admin-dashboard', 'menu-profil', 'menu-petunjuk', 'menu-jadwal-siswa', 'menu-peserta', 'menu-jadwal', 'menu-cetak-kartu', 'menu-denah', 'menu-token', 'menu-laporan', 'menu-bap', 'menu-cetak-sertifikat', 'menu-sertifikat', 'menu-links', 'menu-settings'];
             let hasAdminMenu = false;
             adminMenus.forEach(m => {
-                if (checkMenuPermission(m, u.role)) {
-                    if (u.role === 'Pendamping' && m === 'menu-profil') hasAdminMenu = true;
-                    else if (u.role === 'Pendamping' && m === 'menu-sertifikat') hasAdminMenu = true;
-                    else if (m !== 'menu-profil' && m !== 'menu-sertifikat') hasAdminMenu = true;
-                }
+                if (checkMenuPermission(m, u.role)) hasAdminMenu = true;
             });
 
             if (hasAdminMenu && u.role !== 'Siswa') {
-                menuHtml += `<div class="mb-2 border-b border-white/10 pb-2 text-left"><p class="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-bold mb-2 pl-6">Menu ${u.role === 'Pendamping' ? 'Pendamping' : 'Admin'}</p></div>`;
+                menuHtml += `<div class="mb-2 border-b border-white/10 pb-2 text-left"><p class="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-bold mb-2 pl-6">Menu</p></div>`;
                 
                 if (checkMenuPermission('menu-admin-dashboard', u.role)) {
                     menuHtml += `<button onclick="viewAdminDashboard()" id="menu-admin-dashboard" class="${baseClass} text-slate-300"><i data-lucide="pie-chart" class="w-5 h-5 mr-3"></i> Dashboard</button>`;
+                }
+                if (checkMenuPermission('menu-profil', u.role)) {
+                    menuHtml += `<button onclick="viewSiswaProfile()" id="menu-profil" class="${baseClass} text-slate-300"><i data-lucide="user" class="w-5 h-5 mr-3"></i> Profil</button>`;
                 }
                 if (checkMenuPermission('menu-petunjuk', u.role)) {
                     menuHtml += `<button onclick="viewSiswaPetunjuk()" id="menu-petunjuk" class="${baseClass} text-slate-300"><i data-lucide="book-open" class="w-5 h-5 mr-3"></i> Tata Tertib</button>`;
@@ -1403,9 +1418,6 @@
                 }
                 if (checkMenuPermission('menu-peserta', u.role)) {
                     menuHtml += `<button onclick="viewStaffData()" id="menu-peserta" class="${baseClass} text-slate-300"><i data-lucide="users" class="w-5 h-5 mr-3"></i> ${u.role === 'Pendamping' ? 'Peserta Bimbingan' : 'Data Peserta'}</button>`;
-                }
-                if (checkMenuPermission('menu-profil', u.role) && u.role === 'Pendamping') {
-                    menuHtml += `<button onclick="viewSiswaProfile()" id="menu-profil" class="${baseClass} text-slate-300"><i data-lucide="user" class="w-5 h-5 mr-3"></i> Profil Saya</button>`;
                 }
                 if (checkMenuPermission('menu-jadwal', u.role)) {
                     menuHtml += `<button onclick="viewAdminTimeline()" id="menu-jadwal" class="${baseClass} text-slate-300"><i data-lucide="calendar" class="w-5 h-5 mr-3"></i> Jadwal</button>`;
@@ -1428,8 +1440,8 @@
                 if (checkMenuPermission('menu-cetak-sertifikat', u.role)) {
                     menuHtml += `<button onclick="viewAdminCetakSertifikat()" id="menu-cetak-sertifikat" class="${baseClass} text-slate-300"><i data-lucide="award" class="w-5 h-5 mr-3"></i> Cetak Sertifikat</button>`;
                 }
-                if (checkMenuPermission('menu-sertifikat', u.role) && u.role === 'Pendamping') {
-                    if (u.status === 'Active') {
+                if (checkMenuPermission('menu-sertifikat', u.role)) {
+                    if (u.status === 'Active' || u.role === 'Admin' || u.role === 'Staff' || u.role === 'Guru') {
                         menuHtml += `<button onclick="viewSiswaSertifikat()" id="menu-sertifikat" class="${baseClass} text-slate-300"><i data-lucide="award" class="w-5 h-5 mr-3"></i> Sertifikat</button>`;
                     } else {
                         menuHtml += `<button class="${baseClass} opacity-30 cursor-not-allowed hover:translate-x-0"><i data-lucide="award" class="w-5 h-5 mr-3"></i> Sertifikat <span class="ml-auto text-[8px] bg-white/20 px-2 py-1 rounded-md">Terkunci</span></button>`;
@@ -1444,27 +1456,30 @@
             }
 
             // Bagian Menu Peserta (Siswa)
+            let hasSiswaMenu = false;
+            const siswaMenus = ['menu-status', 'menu-tm', 'menu-kartu', 'menu-app', 'menu-hasil-test'];
             if (u.role === 'Siswa') {
-                let hasSiswaMenu = false;
-                const siswaMenus = ['menu-status', 'menu-petunjuk', 'menu-profil', 'menu-jadwal-siswa', 'menu-tm', 'menu-kartu', 'menu-app', 'menu-hasil-test', 'menu-sertifikat'];
-                siswaMenus.forEach(m => {
-                    if (checkMenuPermission(m, u.role)) hasSiswaMenu = true;
-                });
+                siswaMenus.unshift('menu-petunjuk', 'menu-jadwal-siswa', 'menu-profil');
+                siswaMenus.push('menu-sertifikat');
+            }
+            siswaMenus.forEach(m => {
+                if (checkMenuPermission(m, u.role)) hasSiswaMenu = true;
+            });
 
-                if (hasSiswaMenu) {
+            if (hasSiswaMenu) {
                     menuHtml += `<div class="mt-2 text-left"><p class="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-bold mb-2 pl-6">Menu Peserta</p></div>`;
                     
                     if (checkMenuPermission('menu-status', u.role)) {
                         menuHtml += `<button onclick="viewSiswaHome()" id="menu-status" class="${baseClass} text-slate-300"><i data-lucide="layout-dashboard" class="w-5 h-5 mr-3"></i> Status</button>`;
                     }
-                    if (checkMenuPermission('menu-petunjuk', u.role)) {
+                    if (checkMenuPermission('menu-profil', u.role) && u.role === 'Siswa') {
+                        menuHtml += `<button onclick="viewSiswaProfile()" id="menu-profil" class="${baseClass} text-slate-300"><i data-lucide="user" class="w-5 h-5 mr-3"></i> Profil</button>`;
+                    }
+                    if (checkMenuPermission('menu-petunjuk', u.role) && u.role === 'Siswa') {
                         menuHtml += `<button onclick="viewSiswaPetunjuk()" id="menu-petunjuk" class="${baseClass} text-slate-300"><i data-lucide="book-open" class="w-5 h-5 mr-3"></i> Tata Tertib</button>`;
                     }
-                    if (checkMenuPermission('menu-jadwal-siswa', u.role)) {
+                    if (checkMenuPermission('menu-jadwal-siswa', u.role) && u.role === 'Siswa') {
                         menuHtml += `<button onclick="viewSiswaTimeline()" id="menu-jadwal-siswa" class="${baseClass} text-slate-300"><i data-lucide="calendar" class="w-5 h-5 mr-3"></i> Time Line</button>`;
-                    }
-                    if (checkMenuPermission('menu-profil', u.role)) {
-                        menuHtml += `<button onclick="viewSiswaProfile()" id="menu-profil" class="${baseClass} text-slate-300"><i data-lucide="user" class="w-5 h-5 mr-3"></i> Profil</button>`;
                     }
                     if (checkMenuPermission('menu-tm', u.role)) {
                         if (act) menuHtml += `<button onclick="viewSiswaTM()" id="menu-tm" class="${baseClass} text-slate-300"><i data-lucide="video" class="w-5 h-5 mr-3"></i> Tech. Meeting</button>`;
@@ -1481,11 +1496,10 @@
                     if (checkMenuPermission('menu-hasil-test', u.role)) {
                         menuHtml += `<button onclick="viewSiswaHasilTest()" id="menu-hasil-test" class="${baseClass} text-slate-300"><i data-lucide="file-check" class="w-5 h-5 mr-3"></i> Hasil Test</button>`;
                     }
-                    if (checkMenuPermission('menu-sertifikat', u.role)) {
+                    if (checkMenuPermission('menu-sertifikat', u.role) && u.role === 'Siswa') {
                         if (isCertOpen) menuHtml += `<button onclick="viewSiswaSertifikat()" id="menu-sertifikat" class="${baseClass} text-slate-300"><i data-lucide="award" class="w-5 h-5 mr-3"></i> Sertifikat</button>`;
                         else menuHtml += `<button class="${baseClass} opacity-30 cursor-not-allowed hover:translate-x-0"><i data-lucide="award" class="w-5 h-5 mr-3"></i> Sertifikat <span class="ml-auto text-[8px] bg-white/20 px-2 py-1 rounded-md">Terkunci</span></button>`;
                     }
-                }
             }
 
             side.innerHTML = menuHtml;
@@ -1650,7 +1664,7 @@
                                 <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-2xl font-black shadow-md overflow-hidden border-2 border-white shrink-0">
                                     ${u.profileUrl && u.profileUrl !== '-' ? `<img src="${getDriveThumbnailUrl(u.profileUrl)}" class="w-full h-full object-cover">` : u.name.charAt(0)}
                                 </div>
-                                <h3 class="text-2xl font-black uppercase text-slate-800">Profil Peserta</h3>
+                                <h3 class="text-2xl font-black uppercase text-slate-800">Profil</h3>
                             </div>
                             <button onclick="toggleEditProfile()" class="w-full sm:w-auto px-6 py-3 bg-blue-50 text-blue-600 rounded-xl text-xs uppercase font-black tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-sm transform hover:scale-105 shrink-0">
                                 <i data-lucide="edit" class="w-4 h-4 inline mr-2 -mt-0.5"></i> Edit Profil
@@ -1661,12 +1675,12 @@
                             ${u.role === 'Siswa' ? `
                             <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 hover-card-effect"><p class="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">NISN</p><p class="text-lg text-slate-800">${u.nisn || '-'}</p></div>
                             ` : ''}
-                            <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 hover-card-effect"><p class="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">Sekolah Asal</p><p class="text-lg text-slate-800 uppercase italic font-bold">${u.sekolah || '-'}</p></div>
+                            <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 hover-card-effect"><p class="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">Instansi</p><p class="text-lg text-slate-800 uppercase italic font-bold">${u.sekolah || '-'}</p></div>
                             ${u.role === 'Siswa' ? `
                             <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 hover-card-effect"><p class="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">Tingkat Kelas</p><p class="text-lg text-slate-800 uppercase font-bold">${u.kelas || '-'}</p></div>
                             ` : ''}
                             <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 hover-card-effect"><p class="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">Email Login</p><p class="text-lg text-slate-800">${u.email || '-'}</p></div>
-                            <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 hover-card-effect"><p class="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">Password Akun</p><p class="text-lg text-slate-800 font-mono tracking-wider">${displayPassword}</p></div>
+                            <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 hover-card-effect"><p class="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">Password Akun</p><div class="relative w-full"><input type="password" id="profile-view-pass" readonly value="${displayPassword}" class="w-full bg-transparent text-lg text-slate-800 font-mono tracking-wider outline-none cursor-default pr-8"><button type="button" onclick="togglePass('profile-view-pass', this)" class="absolute right-0 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-600 transition-colors transform hover:scale-110"><i data-lucide="eye" class="w-5 h-5"></i></button></div></div>
                         </div>
                         ${imgHtml}
                     </div>
@@ -1690,7 +1704,7 @@
                                 </div>
                                 ` : `<input type="hidden" id="edit-nisn" value="${u.nisn || '-'}">`}
                                 <div>
-                                    <label class="text-[10px] text-slate-400 font-black uppercase tracking-widest mb-2 block ml-1">Sekolah Asal${isSchoolLocked ? ' <span class="text-red-400">*Terkunci</span>' : ''}</label>
+                                    <label class="text-[10px] text-slate-400 font-black uppercase tracking-widest mb-2 block ml-1">Instansi${isSchoolLocked ? ' <span class="text-red-400">*Terkunci</span>' : ''}</label>
                                     <input type="text" id="edit-sekolah" ${isSchoolLocked ? '' : 'list="sekolah-list"'} value="${u.sekolah || ''}" ${isSchoolLocked ? 'readonly disabled' : 'required'} class="${isSchoolLocked ? 'w-full px-5 py-4 bg-slate-200 border border-slate-300 text-slate-500 rounded-xl outline-none cursor-not-allowed font-bold uppercase' : 'w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-600 uppercase text-slate-800 font-bold transition hover:border-blue-300'}">
                                 </div>
                                 ${u.role === 'Siswa' ? `
@@ -1813,7 +1827,7 @@
                     const validSchools = Array.from(document.querySelectorAll('#sekolah-list option')).map(opt => opt.value.toUpperCase());
                     if (validSchools.length > 0 && !validSchools.includes(s.toUpperCase())) {
                         setLoading(false);
-                        return showAlert('Ralat', 'Pilihan Sekolah Asal tidak valid. Silakan pilih dari daftar yang tersedia. Jika nama sekolah Anda belum ada, silakan konfirmasi ke WA Admin.', 'error');
+                        return showAlert('Ralat', 'Pilihan Instansi tidak valid. Silakan pilih dari daftar yang tersedia. Jika nama instansi Anda belum ada, silakan konfirmasi ke WA Admin.', 'error');
                     }
                 }
                 // Mengirimkan pembaruan termasuk email baru
@@ -1890,7 +1904,7 @@
                                 <p class="font-black uppercase ${namaClass} leading-tight truncate block w-full" title="${u.name}">${u.name}</p>
                             </div>
                             <div class="min-w-0 w-full">
-                                <label class="text-[8px] opacity-60 block font-bold tracking-widest mb-1">SEKOLAH ASAL</label>
+                                <label class="text-[8px] opacity-60 block font-bold tracking-widest mb-1">INSTANSI</label>
                                 <p class="font-bold uppercase text-sm text-slate-300 truncate block w-full" title="${u.sekolah || '-'}">${u.sekolah || '-'}</p>
                             </div>
                             <div class="flex items-center gap-4 pt-1">
@@ -2817,8 +2831,8 @@
                         </div>
                         ${currentUser.role !== 'Pendamping' ? `
                         <div>
-                            <label class="text-[9px] font-black uppercase text-slate-400 block mb-1.5 ml-1">Cari Sekolah Asal</label>
-                            <input type="text" id="staff-filter-sekolah" oninput="applyStaffFilters()" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-blue-600 outline-none transition hover:border-blue-300" placeholder="Ketik sekolah...">
+                            <label class="text-[9px] font-black uppercase text-slate-400 block mb-1.5 ml-1">Cari Instansi</label>
+                            <input type="text" id="staff-filter-sekolah" oninput="applyStaffFilters()" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-blue-600 outline-none transition hover:border-blue-300" placeholder="Ketik instansi...">
                         </div>
                         <div>
                             <label class="text-[9px] font-black uppercase text-slate-400 block mb-1.5 ml-1">Filter Role</label>
@@ -2847,7 +2861,7 @@
                                     <th class="p-4 text-center font-black uppercase text-[10px] tracking-widest whitespace-nowrap w-12">No</th>
                                     <th class="p-4 text-left font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Nama Lengkap</th>
                                     <th class="p-4 text-left font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Kelas</th>
-                                    <th class="p-4 text-left font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Sekolah Asal</th>
+                                    <th class="p-4 text-left font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Instansi</th>
                                     <th class="p-4 text-center font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Status</th>
                                     <th class="p-4 text-center font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Aksi</th>
                                 </tr>
@@ -3399,7 +3413,7 @@
                                 <th class="p-1 border border-slate-800 text-[10px] uppercase font-black tracking-widest text-left">Nama Lengkap</th>
                                 <th class="p-1 border border-slate-800 text-[10px] uppercase font-black tracking-widest">NISN</th>
                                 <th class="p-1 border border-slate-800 text-[10px] uppercase font-black tracking-widest">Kelas</th>
-                                <th class="p-1 border border-slate-800 text-[10px] uppercase font-black tracking-widest text-left">Sekolah Asal</th>
+                                <th class="p-1 border border-slate-800 text-[10px] uppercase font-black tracking-widest text-left">Instansi</th>
                                 <th class="p-1 border border-slate-800 text-[10px] uppercase font-black tracking-widest">Tanda Tangan</th>
                             </tr>
                         </thead>
@@ -3486,7 +3500,7 @@
             if (typeof XLSX === 'undefined') return showAlert('Ralat', 'Library XLSX belum dimuat. Pastikan sambungan internet aktif.', 'error');
             
             const isAdmin = currentUser && currentUser.role === 'Admin';
-            const headers = ['No Urut', 'Nama Lengkap', 'NISN', 'Sekolah Asal', 'Tingkat Kelas', 'No HP (WhatsApp)', 'Email Login'];
+            const headers = ['No Urut', 'Nama Lengkap', 'NISN', 'Instansi', 'Tingkat Kelas', 'No HP (WhatsApp)', 'Email Login'];
             if (isAdmin) headers.push('Password');
             headers.push('Status', 'Role', 'Sertifikat Peserta', 'Sertifikat Juara', 'Juara', 'Status CBT', 'Nilai Uji', 'Waktu Uji', 'Status Uji', 'Nilai Kom', 'Waktu Kom', 'Status Kom', 'Login Terakhir', 'Logout Terakhir');
             
@@ -3543,7 +3557,7 @@
 
             const detailData = [
                 { label: 'NISN', value: p["NISN"] },
-                { label: 'Sekolah Asal', value: p["Sekolah Asal"] },
+                { label: 'Instansi', value: p["Sekolah Asal"] },
                 { label: 'Tingkat Kelas', value: p["Tingkat Kelas"] },
                 { label: 'No HP (WhatsApp)', value: p["No HP (WhatsApp)"] },
                 { label: 'Email Login', value: p["Email"] },
@@ -4058,6 +4072,12 @@
 
             if (!globalMenuSettings) initDefaultMenuSettings();
 
+            try {
+                while (typeof globalMenuSettings === 'string') {
+                    globalMenuSettings = JSON.parse(globalMenuSettings);
+                }
+            } catch(e) {}
+
             const roles = ['Admin', 'Staff', 'Guru', 'Siswa', 'Pendamping'];
             const menuNames = {
                 'menu-admin-dashboard': 'Dashboard Admin',
@@ -4097,7 +4117,7 @@
                                 ${roles.map(role => `
                                     <td class="p-4 text-center">
                                         <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" class="sr-only peer menu-toggle-checkbox" data-menu="${menuId}" data-role="${role}" ${globalMenuSettings[menuId] && globalMenuSettings[menuId][role] ? 'checked' : ''} ${menuId === 'menu-settings' && role === 'Admin' ? 'disabled' : ''}>
+                                            <input type="checkbox" class="sr-only peer menu-toggle-checkbox" data-menu="${menuId}" data-role="${role}" ${globalMenuSettings[menuId] && (globalMenuSettings[menuId][role] === true || globalMenuSettings[menuId][role] === 'true' || globalMenuSettings[menuId][role] === 'TRUE') ? 'checked' : ''} ${menuId === 'menu-settings' && role === 'Admin' ? 'disabled' : ''}>
                                             <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 ${menuId === 'menu-settings' && role === 'Admin' ? 'opacity-50 cursor-not-allowed' : ''}"></div>
                                         </label>
                                     </td>
@@ -4129,6 +4149,11 @@
 
         async function saveMenuSettings() {
             setLoading(true);
+            try {
+                while (typeof globalMenuSettings === 'string') {
+                    globalMenuSettings = JSON.parse(globalMenuSettings);
+                }
+            } catch(e) { globalMenuSettings = {}; }
             const checkboxes = document.querySelectorAll('.menu-toggle-checkbox');
             checkboxes.forEach(cb => {
                 const menuId = cb.dataset.menu;
@@ -4333,8 +4358,8 @@
                             <input type="text" id="cert-filter-name" oninput="applyCertFilters()" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-blue-600 outline-none transition hover:border-blue-300" placeholder="Ketik nama...">
                         </div>
                         <div>
-                            <label class="text-[9px] font-black uppercase text-slate-400 block mb-1.5 ml-1">Cari Sekolah</label>
-                            <input type="text" id="cert-filter-sekolah" oninput="applyCertFilters()" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-blue-600 outline-none transition hover:border-blue-300" placeholder="Ketik sekolah...">
+                            <label class="text-[9px] font-black uppercase text-slate-400 block mb-1.5 ml-1">Cari Instansi</label>
+                            <input type="text" id="cert-filter-sekolah" oninput="applyCertFilters()" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-blue-600 outline-none transition hover:border-blue-300" placeholder="Ketik instansi...">
                         </div>
                         <div>
                             <label class="text-[9px] font-black uppercase text-slate-400 block mb-1.5 ml-1">Filter Role</label>
@@ -4374,7 +4399,7 @@
                                     <th class="p-3 text-center font-black uppercase text-[10px] tracking-widest whitespace-nowrap w-10">No</th>
                                     <th class="p-3 text-left font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Nama Lengkap</th>
                                     <th class="p-3 text-center font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Kelas</th>
-                                    <th class="p-3 text-left font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Sekolah Asal</th>
+                                    <th class="p-3 text-left font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Instansi</th>
                                     <th class="p-3 text-left font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Pembina</th>
                                     <th class="p-3 text-center font-black uppercase text-[10px] tracking-widest whitespace-nowrap text-blue-300">Uji Coba</th>
                                     <th class="p-3 text-center font-black uppercase text-[10px] tracking-widest whitespace-nowrap text-blue-300">Rank Uji</th>
@@ -4693,7 +4718,7 @@
                                 <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider text-left">Nama Lengkap</th>
                                 <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider">NISN</th>
                                 <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider">Kelas</th>
-                                <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider text-left">Sekolah Asal</th>
+                                <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider text-left">Instansi</th>
                                 <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider text-blue-700">Nilai</th>
                                 <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider text-slate-600">Sisa Waktu</th>
                                 <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider text-amber-600">Rank</th>
@@ -4930,7 +4955,7 @@
                                 <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider">No</th>
                                 <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider text-left">Nama Pemenang</th>
                                 <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider">NISN</th>
-                                <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider text-left">Sekolah Asal</th>
+                                <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider text-left">Instansi</th>
                                 <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider">Kelas</th>
                                 <th class="p-2 border border-slate-800 text-[11px] uppercase font-black tracking-wider">Gelar Juara</th>
                             </tr>
@@ -5039,19 +5064,6 @@
 
                             <h4 class="font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-white uppercase text-xl tracking-widest mb-1 relative z-10">Halaman Token</h4>
                             <p class="text-[10px] text-indigo-400/80 uppercase tracking-[0.2em] font-bold mb-8 relative z-10">Akses Server CBT SMANSaTu</p>
-                            
-                            <!-- PassKey Box -->
-                            <!--div class="relative z-10 bg-black/40 backdrop-blur-xl p-6 rounded-[1.5rem] border border-indigo-500/20 shadow-inner mb-8 flex flex-col items-center justify-center group-hover:border-indigo-500/40 transition-colors">
-                                <p class="text-[10px] font-bold text-indigo-300 uppercase tracking-widest mb-3 flex items-center">
-                                    <i data-lucide="lock" class="w-3 h-3 mr-1.5 opacity-80"></i> PassKey Token
-                                </p>
-                                <div class="flex items-center justify-center gap-4 w-full">
-                                    <p class="text-4xl font-black text-white tracking-[0.15em] select-all drop-shadow-[0_0_12px_rgba(99,102,241,0.6)]">${passKey}</p>
-                                    <button type="button" onclick="copyToClipboardText('${passKey}')" class="p-3.5 bg-indigo-600/30 rounded-xl hover:bg-indigo-500 transition-all active:scale-95 transform hover:scale-110 shrink-0 text-white border border-indigo-500/50 shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:shadow-[0_0_20px_rgba(99,102,241,0.6)]" title="Salin PassKey">
-                                        <i data-lucide="copy" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
-                            </div-->
                             
                             <button onclick="window.open('${tokenLink}', '_blank')" class="relative z-10 inline-flex items-center justify-center w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-black py-4 rounded-xl uppercase text-[11px] tracking-widest shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] transition-all transform hover:scale-[1.02] active:scale-95 border border-indigo-400/50">
                                 <i data-lucide="external-link" class="w-4 h-4 mr-2"></i> Buka Token Server
@@ -5428,7 +5440,7 @@
                                 <thead class="bg-slate-800 text-white">
                                     <tr>
                                         <th class="p-3 text-left text-[10px] uppercase tracking-widest font-black">Nama Pemenang</th>
-                                        <th class="p-3 text-left text-[10px] uppercase tracking-widest font-black">Sekolah Asal</th>
+                                    <th class="p-3 text-left text-[10px] uppercase tracking-widest font-black">Instansi</th>
                                         <th class="p-3 text-center text-[10px] uppercase tracking-widest font-black">Nilai</th>
                                         <th class="p-3 text-center text-[10px] uppercase tracking-widest font-black">Sisa Waktu</th>
                                         <th class="p-3 text-center text-[10px] uppercase tracking-widest font-black">Gelar Juara</th>
@@ -5451,7 +5463,7 @@
                                     <tr>
                                         <th class="p-3 border-b border-slate-200 text-center text-[10px] uppercase tracking-widest font-black text-slate-600 w-12">No</th>
                                         <th class="p-3 border-b border-slate-200 text-left text-[10px] uppercase tracking-widest font-black text-slate-600">Nama Lengkap</th>
-                                        <th class="p-3 border-b border-slate-200 text-left text-[10px] uppercase tracking-widest font-black text-slate-600">Asal Sekolah</th>
+                                    <th class="p-3 border-b border-slate-200 text-left text-[10px] uppercase tracking-widest font-black text-slate-600">Instansi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -5546,7 +5558,7 @@
                     const guruSekolah = document.getElementById('guru-sekolah');
                     if (guruSekolah && guruSekolah.tagName === 'SELECT') {
                         const existingVal = guruSekolah.value;
-                        guruSekolah.innerHTML = '<option value="" disabled selected>PILIH SEKOLAH ASAL</option>' + res.data.map(s => `<option value="${s}">${s}</option>`).join('');
+                    guruSekolah.innerHTML = '<option value="" disabled selected>PILIH INSTANSI</option>' + res.data.map(s => `<option value="${s}">${s}</option>`).join('');
                         if (existingVal) guruSekolah.value = existingVal;
                     }
                 }
