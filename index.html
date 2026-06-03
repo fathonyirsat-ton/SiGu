@@ -10,7 +10,7 @@
     <!-- ======================================================================= -->
     <script>
         const CONFIG = {
-            API_URL: 'https://script.google.com/macros/s/AKfycbzDxYPNm2N893dVJBPi9C06zLpavvRLf98-3wReVxGJI1nextgkjIoopmQkP1hnnUyc/exec',
+            API_URL: 'https://script.google.com/macros/s/AKfycbz2_ovdb8H06GbOsnD00c0exX6dKHc3Dn4eTDY341L7RDnZDa8QhUAgF9P8ypeTh2JI/exec',
             LOGO_URL: 'https://lh3.googleusercontent.com/d/1BqLTq6mgStBOtbV8eWUwgmuvlsqjsqtx',
             QRIS_URL: 'https://drive.google.com/thumbnail?id=1zlxMNvEt7a3Pos_Zt8qq6hUtleI2UTj_&sz=w1000'
         };
@@ -207,6 +207,12 @@
                             </a>
                             <a href="https://smansatuban.sch.id" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 rounded-full bg-purple-900 text-white hover:bg-purple-950 border border-purple-800 shadow-lg shadow-purple-900/30 font-bold text-xs uppercase tracking-widest transition-all duration-300 transform hover:scale-105 active:scale-95">
                                 <i data-lucide="globe" class="w-4 h-4 mr-2"></i> Profil
+                            </a>
+                            <a href="http://112.78.44.187:8239/" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-700 border border-blue-500 shadow-lg shadow-blue-600/30 font-bold text-xs uppercase tracking-widest transition-all duration-300 transform hover:scale-105 active:scale-95">
+                                <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> eRapor
+                            </a>
+                            <a href="http://112.78.44.187:5774/" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 rounded-full bg-teal-600 text-white hover:bg-teal-700 border border-teal-500 shadow-lg shadow-teal-600/30 font-bold text-xs uppercase tracking-widest transition-all duration-300 transform hover:scale-105 active:scale-95">
+                                <i data-lucide="database" class="w-4 h-4 mr-2"></i> Dapodik
                             </a>
                         </div>
                     </div>
@@ -796,6 +802,18 @@
                 const res = await callGAS({ action: 'getMenuSettings' });
                 if (res && res.result === 'success') {
                     globalMenuSettings = typeof res.settings === 'string' ? JSON.parse(res.settings) : res.settings;
+                    
+                    // Inject akses menu eRapor jika belum ada di database lama
+                    if (globalMenuSettings && !globalMenuSettings['menu-erapor']) {
+                        globalMenuSettings['menu-erapor'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': true, 'Siswa': true };
+                    }
+                    if (globalMenuSettings && !globalMenuSettings['menu-dapodik']) {
+                        globalMenuSettings['menu-dapodik'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
+                    }
+                    if (globalMenuSettings && !globalMenuSettings['menu-upload-soal']) {
+                        globalMenuSettings['menu-upload-soal'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
+                    }
+                    
                     localStorage.setItem('sigu_menu_settings', JSON.stringify(globalMenuSettings));
                 }
             } catch (e) {
@@ -804,6 +822,11 @@
             
             if (!globalMenuSettings) {
                 initDefaultMenuSettings();
+            } else if (!globalMenuSettings['menu-erapor'] || !globalMenuSettings['menu-dapodik'] || !globalMenuSettings['menu-upload-soal']) {
+                if (!globalMenuSettings['menu-erapor']) globalMenuSettings['menu-erapor'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': true, 'Siswa': true };
+                if (!globalMenuSettings['menu-dapodik']) globalMenuSettings['menu-dapodik'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
+                if (!globalMenuSettings['menu-upload-soal']) globalMenuSettings['menu-upload-soal'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
+                localStorage.setItem('sigu_menu_settings', JSON.stringify(globalMenuSettings));
             }
         }
 
@@ -839,8 +862,16 @@
                     'menu-kartu': { 'Admin': false, 'Staff': false, 'Guru': false, 'Pendamping': false, 'Siswa': true },
                     'menu-app': { 'Admin': false, 'Staff': false, 'Guru': false, 'Pendamping': false, 'Siswa': true },
                     'menu-hasil-test': { 'Admin': false, 'Staff': false, 'Guru': false, 'Pendamping': false, 'Siswa': true },
-                    'menu-sertifikat': { 'Admin': false, 'Staff': false, 'Guru': false, 'Pendamping': true, 'Siswa': true }
+                    'menu-sertifikat': { 'Admin': false, 'Staff': false, 'Guru': false, 'Pendamping': true, 'Siswa': true },
+                    'menu-erapor': { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': true, 'Siswa': true },
+                    'menu-dapodik': { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false },
+                    'menu-upload-soal': { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false }
                 };
+                localStorage.setItem('sigu_menu_settings', JSON.stringify(globalMenuSettings));
+            } else if (!globalMenuSettings['menu-erapor'] || !globalMenuSettings['menu-dapodik'] || !globalMenuSettings['menu-upload-soal']) {
+                if (!globalMenuSettings['menu-erapor']) globalMenuSettings['menu-erapor'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': true, 'Siswa': true };
+                if (!globalMenuSettings['menu-dapodik']) globalMenuSettings['menu-dapodik'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
+                if (!globalMenuSettings['menu-upload-soal']) globalMenuSettings['menu-upload-soal'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
                 localStorage.setItem('sigu_menu_settings', JSON.stringify(globalMenuSettings));
             }
         }
@@ -1395,7 +1426,7 @@
             let menuHtml = '';
 
             // Bagian Menu Panel Admin / Pendamping
-            const adminMenus = ['menu-admin-dashboard', 'menu-profil', 'menu-petunjuk', 'menu-jadwal-siswa', 'menu-peserta', 'menu-jadwal', 'menu-cetak-kartu', 'menu-denah', 'menu-token', 'menu-laporan', 'menu-bap', 'menu-cetak-sertifikat', 'menu-sertifikat', 'menu-links', 'menu-settings'];
+            const adminMenus = ['menu-admin-dashboard', 'menu-profil', 'menu-petunjuk', 'menu-jadwal-siswa', 'menu-peserta', 'menu-jadwal', 'menu-cetak-kartu', 'menu-denah', 'menu-upload-soal', 'menu-token', 'menu-laporan', 'menu-bap', 'menu-cetak-sertifikat', 'menu-sertifikat', 'menu-links', 'menu-erapor', 'menu-dapodik', 'menu-settings'];
             let hasAdminMenu = false;
             adminMenus.forEach(m => {
                 if (checkMenuPermission(m, u.role)) hasAdminMenu = true;
@@ -1428,6 +1459,9 @@
                 if (checkMenuPermission('menu-denah', u.role)) {
                     menuHtml += `<button onclick="viewDenahRuang()" id="menu-denah" class="${baseClass} text-slate-300"><i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Denah + Presensi</button>`;
                 }
+                if (checkMenuPermission('menu-upload-soal', u.role)) {
+                    menuHtml += `<button onclick="viewUploadSoal()" id="menu-upload-soal" class="${baseClass} text-slate-300"><i data-lucide="folder-up" class="w-5 h-5 mr-3"></i> Asesmen</button>`;
+                }
                 if (checkMenuPermission('menu-token', u.role)) {
                     menuHtml += `<button onclick="viewAdminTokenCBT()" id="menu-token" class="${baseClass} text-slate-300"><i data-lucide="key" class="w-5 h-5 mr-3"></i> Token CBT</button>`;
                 }
@@ -1450,6 +1484,12 @@
                 if (checkMenuPermission('menu-links', u.role)) {
                     menuHtml += `<button onclick="viewAdminLinks()" id="menu-links" class="${baseClass} text-slate-300"><i data-lucide="link" class="w-5 h-5 mr-3"></i> Link Aplikasi</button>`;
                 }
+                if (checkMenuPermission('menu-erapor', u.role)) {
+                    menuHtml += `<button onclick="viewEraporInfo()" id="menu-erapor" class="${baseClass} text-slate-300"><i data-lucide="file-text" class="w-5 h-5 mr-3"></i> eRapor</button>`;
+                }
+                if (checkMenuPermission('menu-dapodik', u.role)) {
+                    menuHtml += `<button onclick="viewDapodikInfo()" id="menu-dapodik" class="${baseClass} text-slate-300"><i data-lucide="database" class="w-5 h-5 mr-3"></i> Dapodik</button>`;
+                }
                 if (checkMenuPermission('menu-settings', u.role)) {
                     menuHtml += `<button onclick="viewAdminMenuSettings()" id="menu-settings" class="${baseClass} text-slate-300"><i data-lucide="settings" class="w-5 h-5 mr-3"></i> Pengaturan Menu</button>`;
                 }
@@ -1460,14 +1500,14 @@
             const siswaMenus = ['menu-status', 'menu-tm', 'menu-kartu', 'menu-app', 'menu-hasil-test'];
             if (u.role === 'Siswa') {
                 siswaMenus.unshift('menu-petunjuk', 'menu-jadwal-siswa', 'menu-profil');
-                siswaMenus.push('menu-sertifikat');
+                siswaMenus.push('menu-sertifikat', 'menu-erapor', 'menu-dapodik');
             }
             siswaMenus.forEach(m => {
                 if (checkMenuPermission(m, u.role)) hasSiswaMenu = true;
             });
 
             if (hasSiswaMenu) {
-                    menuHtml += `<div class="mt-2 text-left"><p class="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-bold mb-2 pl-6">Menu Peserta</p></div>`;
+                    menuHtml += `<div class="mt-2 text-left"><p class="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-bold mb-2 pl-6">Menu Siswa</p></div>`;
                     
                     if (checkMenuPermission('menu-status', u.role)) {
                         menuHtml += `<button onclick="viewSiswaHome()" id="menu-status" class="${baseClass} text-slate-300"><i data-lucide="layout-dashboard" class="w-5 h-5 mr-3"></i> Status</button>`;
@@ -1500,6 +1540,12 @@
                         if (isCertOpen) menuHtml += `<button onclick="viewSiswaSertifikat()" id="menu-sertifikat" class="${baseClass} text-slate-300"><i data-lucide="award" class="w-5 h-5 mr-3"></i> Sertifikat</button>`;
                         else menuHtml += `<button class="${baseClass} opacity-30 cursor-not-allowed hover:translate-x-0"><i data-lucide="award" class="w-5 h-5 mr-3"></i> Sertifikat <span class="ml-auto text-[8px] bg-white/20 px-2 py-1 rounded-md">Terkunci</span></button>`;
                     }
+                    if (checkMenuPermission('menu-erapor', u.role) && u.role === 'Siswa') {
+                        menuHtml += `<button onclick="viewEraporInfo()" id="menu-erapor" class="${baseClass} text-slate-300"><i data-lucide="file-text" class="w-5 h-5 mr-3"></i> eRapor</button>`;
+                    }
+                    if (checkMenuPermission('menu-dapodik', u.role) && u.role === 'Siswa') {
+                        menuHtml += `<button onclick="viewDapodikInfo()" id="menu-dapodik" class="${baseClass} text-slate-300"><i data-lucide="database" class="w-5 h-5 mr-3"></i> Dapodik</button>`;
+                    }
             }
 
             side.innerHTML = menuHtml;
@@ -1516,6 +1562,622 @@
             }
 
             side.innerHTML += `<div class="pt-4 mt-4 border-t border-white/10 text-left"><button onclick="handleLogout()" class="${baseClass} text-red-400 hover:text-red-300 hover:bg-red-500/10"><i data-lucide="log-out" class="w-5 h-5 mr-3"></i> Keluar</button></div>`;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function viewEraporInfo() {
+            setActiveMenu('menu-erapor');
+            const dc = document.getElementById('dashboard-content');
+            if (!dc) return;
+            dc.innerHTML = `
+                <div class="bg-white p-8 md:p-12 rounded-[3rem] border shadow-sm font-bold text-center animate-scale-in">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-slate-100 pb-6">
+                        <div class="text-center md:text-left">
+                            <h3 class="text-2xl font-black uppercase text-slate-800">Informasi eRapor</h3>
+                            <p class="text-sm text-slate-500 mt-1 leading-relaxed">Akses portal rapor elektronik eksternal.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="max-w-2xl mx-auto text-left">
+                        <div class="bg-blue-50 border border-blue-200 rounded-[2rem] p-8 md:p-10 transition-transform duration-300 hover:scale-[1.02] flex flex-col justify-center items-center text-center shadow-sm animate-slide-right">
+                            <div class="w-24 h-24 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl animate-pulse-soft">
+                                <i data-lucide="file-text" class="w-12 h-12"></i>
+                            </div>
+                            <h4 class="font-black text-2xl text-blue-900 uppercase tracking-tight mb-4">Portal eRapor SMANSaTu</h4>
+                            <p class="text-sm text-blue-800 font-bold mb-10 leading-relaxed max-w-lg mx-auto">
+                                Anda akan diarahkan ke tab baru untuk membuka portal eRapor eksternal. Silakan gunakan kredensial (username & password) yang telah diberikan oleh pihak sekolah untuk masuk ke dalam sistem.
+                            </p>
+                            
+                            <button onclick="window.open('http://112.78.44.187:8239/', '_blank')" class="w-full sm:w-auto inline-flex justify-center items-center bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 rounded-2xl text-xs font-black uppercase tracking-widest shadow-lg transition-transform hover:scale-105 active:scale-95 border border-blue-500">
+                                <i data-lucide="external-link" class="w-5 h-5 mr-3"></i> Lanjutkan ke eRapor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function viewDapodikInfo() {
+            setActiveMenu('menu-dapodik');
+            const dc = document.getElementById('dashboard-content');
+            if (!dc) return;
+            dc.innerHTML = `
+                <div class="bg-white p-8 md:p-12 rounded-[3rem] border shadow-sm font-bold text-center animate-scale-in">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-slate-100 pb-6">
+                        <div class="text-center md:text-left">
+                            <h3 class="text-2xl font-black uppercase text-slate-800">Informasi Dapodik</h3>
+                            <p class="text-sm text-slate-500 mt-1 leading-relaxed">Akses portal Data Pokok Pendidikan eksternal.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="max-w-2xl mx-auto text-left">
+                        <div class="bg-teal-50 border border-teal-200 rounded-[2rem] p-8 md:p-10 transition-transform duration-300 hover:scale-[1.02] flex flex-col justify-center items-center text-center shadow-sm animate-slide-right">
+                            <div class="w-24 h-24 bg-teal-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl animate-pulse-soft">
+                                <i data-lucide="database" class="w-12 h-12"></i>
+                            </div>
+                            <h4 class="font-black text-2xl text-teal-900 uppercase tracking-tight mb-4">Portal Dapodik SMANSaTu</h4>
+                            <p class="text-sm text-teal-800 font-bold mb-10 leading-relaxed max-w-lg mx-auto">
+                                Anda akan diarahkan ke tab baru untuk membuka portal Dapodik eksternal. Silakan gunakan kredensial yang telah diberikan oleh pihak sekolah untuk masuk ke dalam sistem.
+                            </p>
+                            
+                            <button onclick="window.open('http://112.78.44.187:5774/', '_blank')" class="w-full sm:w-auto inline-flex justify-center items-center bg-teal-600 hover:bg-teal-700 text-white px-10 py-5 rounded-2xl text-xs font-black uppercase tracking-widest shadow-lg transition-transform hover:scale-105 active:scale-95 border border-teal-500">
+                                <i data-lucide="external-link" class="w-5 h-5 mr-3"></i> Lanjutkan ke Dapodik
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        let globalBankSoal = [];
+        let globalDefaultJa = '';
+
+        function viewUploadSoal() {
+            setActiveMenu('menu-upload-soal');
+            const dc = document.getElementById('dashboard-content');
+            if (!dc) return;
+            
+            let rombelCheckboxes = '';
+            const letters = ['A','B','C','D','E','F','G','H','I','J','K'];
+            letters.forEach(letter => {
+                rombelCheckboxes += `<label class="inline-flex items-center space-x-2 cursor-pointer bg-slate-50 border border-blue-100 px-3 py-2 rounded-lg hover:bg-blue-100 transition shadow-sm select-none"><input type="checkbox" name="soal-rombel-cb" value="${letter}" class="form-checkbox h-4 w-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"><span class="text-xs font-black text-slate-700">${letter}</span></label>`;
+            });
+
+            dc.innerHTML = `
+                <div class="bg-white p-8 md:p-12 rounded-[3rem] border shadow-sm font-bold text-center animate-scale-in">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-slate-100 pb-6">
+                        <div class="text-center md:text-left">
+                            <h3 id="form-soal-title" class="text-2xl font-black uppercase text-slate-800 flex items-center justify-center md:justify-start">
+                                <i data-lucide="folder-up" class="w-6 h-6 mr-3 text-blue-600"></i> Asesmen
+                            </h3>
+                            <p class="text-sm text-slate-500 mt-1 leading-relaxed">Penyimpanan Otomatis ke Google Drive & Riwayat.</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="switchSoalTab('info')" id="tab-info-soal" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-black text-[10px] uppercase tracking-widest shadow-md transition-colors">Informasi</button>
+                            <button onclick="switchSoalTab('upload')" id="tab-upload-soal" class="px-6 py-2.5 bg-slate-100 text-slate-500 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-slate-200 transition-colors">Upload Soal</button>
+                            <button onclick="switchSoalTab('history')" id="tab-history-soal" class="px-6 py-2.5 bg-slate-100 text-slate-500 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-slate-200 transition-colors">Riwayat Data</button>
+                        </div>
+                    </div>
+                    
+                    <div id="soal-info-container" class="max-w-3xl mx-auto text-left block animate-scale-in">
+                        <div class="bg-blue-50 border border-blue-100 p-8 md:p-12 rounded-[2rem] shadow-sm text-center">
+                            <div class="w-24 h-24 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl animate-pulse-soft">
+                                <i data-lucide="info" class="w-12 h-12"></i>
+                            </div>
+                            <h4 class="font-black text-2xl text-blue-900 mb-4 uppercase tracking-tight">Informasi Asesmen</h4>
+                            <p class="text-sm text-blue-800 font-bold mb-10 leading-relaxed max-w-lg mx-auto">Selamat datang di menu Asesmen. Menu ini digunakan untuk mengunggah file Administrasi Guru (Soal Ujian, Kisi-kisi, dan Kunci Jawaban). Silakan pilih aksi yang ingin Anda lakukan di bawah ini.</p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <button onclick="switchSoalTab('upload')" class="w-full sm:w-auto bg-blue-600 text-white font-black py-4 px-8 rounded-xl uppercase text-xs tracking-widest shadow-lg hover:bg-blue-700 transition active:scale-95 transform hover:scale-[1.02] flex items-center justify-center">
+                                    <i data-lucide="upload-cloud" class="w-4 h-4 mr-2 -mt-0.5"></i> Upload Soal
+                                </button>
+                                <button onclick="switchSoalTab('history')" class="w-full sm:w-auto bg-slate-800 text-white font-black py-4 px-8 rounded-xl uppercase text-xs tracking-widest shadow-lg hover:bg-slate-900 transition active:scale-95 transform hover:scale-[1.02] flex items-center justify-center">
+                                    <i data-lucide="history" class="w-4 h-4 mr-2 -mt-0.5"></i> Riwayat Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="soal-upload-container" class="max-w-3xl mx-auto text-left hidden animate-scale-in">
+                        <form onsubmit="handleUploadBankSoal(event)" class="bg-blue-50 border border-blue-100 p-8 rounded-3xl shadow-sm space-y-6">
+                            <input type="hidden" id="soal-row-num" value="">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:col-span-2">
+                                <div>
+                                    <label class="text-[10px] font-black uppercase mb-2 block text-blue-800 tracking-widest ml-1">Jenis Asesmen *</label>
+                                    <select id="soal-jenis-asesmen" required class="w-full px-5 py-4 bg-white border border-blue-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-600 transition uppercase text-slate-800 font-black cursor-pointer appearance-none">
+                                        <option value="" disabled selected>Memuat data...</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-black uppercase mb-2 block text-blue-800 tracking-widest ml-1">Mata Pelajaran *</label>
+                                    <select id="soal-mapel" required class="w-full px-5 py-4 bg-white border border-blue-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-600 transition uppercase text-slate-800 font-black cursor-pointer appearance-none">
+                                        <option value="" disabled selected>Memuat data...</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="text-[10px] font-black uppercase mb-2 block text-blue-800 tracking-widest ml-1">Tingkat Kelas *</label>
+                                    <select id="soal-kelas" required class="w-full px-5 py-4 bg-white border border-blue-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-600 transition uppercase text-slate-800 font-black cursor-pointer appearance-none">
+                                        <option value="" disabled selected>Pilih Kelas</option>
+                                        <option value="10">Kelas 10 (X)</option>
+                                        <option value="11">Kelas 11 (XI)</option>
+                                        <option value="12">Kelas 12 (XII)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="md:col-span-2">
+                                    <label class="text-[10px] font-black uppercase mb-2 block text-blue-800 tracking-widest ml-1">Rombel / Bagian Kelas *</label>
+                                    <div class="flex flex-wrap gap-2 p-3 bg-white border border-blue-200 rounded-xl w-full">
+                                        ${rombelCheckboxes}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-blue-200 pt-6 space-y-4">
+                                <p class="text-[10px] font-black uppercase text-blue-800 tracking-widest ml-1 mb-2">Lampiran File Administrasi Guru</p>
+                                
+                                <!-- Soal Word -->
+                                <div class="flex flex-col md:flex-row items-start md:items-center gap-4 bg-white p-4 rounded-xl border border-blue-100">
+                                    <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center shrink-0">
+                                        <i data-lucide="file-text" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="flex-1 w-full min-w-0">
+                                        <span class="block text-xs font-black uppercase text-slate-700">File Soal Ujian (Word) <span id="soal-req-word" class="text-red-500">*</span></span>
+                                        <span id="soal-file-name" class="block text-[10px] text-slate-400 truncate mt-0.5">Maks. 5MB (.doc, .docx)</span>
+                                    </div>
+                                    <label class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest cursor-pointer shadow-md transition-transform hover:-translate-y-0.5 active:scale-95 w-full md:w-auto text-center">
+                                        Pilih File
+                                        <input type="file" id="soal-file-word" accept=".doc, .docx, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="hidden" onchange="convertGenericFile(this, 'soal-base64-word', 'soal-file-name')">
+                                    </label>
+                                    <input type="hidden" id="soal-base64-word">
+                                </div>
+
+                                <!-- Kisi-Kisi Word -->
+                                <div class="flex flex-col md:flex-row items-start md:items-center gap-4 bg-white p-4 rounded-xl border border-blue-100">
+                                    <div class="w-10 h-10 bg-indigo-100 text-indigo-700 rounded-lg flex items-center justify-center shrink-0">
+                                        <i data-lucide="table" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="flex-1 w-full min-w-0">
+                                        <span class="block text-xs font-black uppercase text-slate-700">File Kisi-Kisi (Word) <span id="kisi-req-word" class="text-red-500">*</span></span>
+                                        <span id="kisi-file-name" class="block text-[10px] text-slate-400 truncate mt-0.5">Maks. 5MB (.doc, .docx)</span>
+                                    </div>
+                                    <label class="shrink-0 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest cursor-pointer shadow-md transition-transform hover:-translate-y-0.5 active:scale-95 w-full md:w-auto text-center">
+                                        Pilih File
+                                        <input type="file" id="soal-file-kisi" accept=".doc, .docx, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="hidden" onchange="convertGenericFile(this, 'soal-base64-kisi', 'kisi-file-name')">
+                                    </label>
+                                    <input type="hidden" id="soal-base64-kisi">
+                                </div>
+
+                                <!-- Kunci Jawaban Excel -->
+                                <div class="flex flex-col md:flex-row items-start md:items-center gap-4 bg-white p-4 rounded-xl border border-blue-100">
+                                    <div class="w-10 h-10 bg-green-100 text-green-700 rounded-lg flex items-center justify-center shrink-0">
+                                        <i data-lucide="check-square" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="flex-1 w-full min-w-0">
+                                        <span class="block text-xs font-black uppercase text-slate-700">Kunci Soal (Excel) <span id="kunci-req-word" class="text-red-500">*</span></span>
+                                        <span id="kunci-file-name" class="block text-[10px] text-slate-400 truncate mt-0.5">Maks. 5MB (.xls, .xlsx)</span>
+                                    </div>
+                                    <label class="shrink-0 bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest cursor-pointer shadow-md transition-transform hover:-translate-y-0.5 active:scale-95 w-full md:w-auto text-center">
+                                        Pilih File
+                                        <input type="file" id="soal-file-kunci" accept=".xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required class="hidden" onchange="convertGenericFile(this, 'soal-base64-kunci', 'kunci-file-name')">
+                                    </label>
+                                    <input type="hidden" id="soal-base64-kunci">
+                                </div>
+                            </div>
+                            
+                            ${currentUser.role === 'Admin' ? `
+                            <div class="border-t border-blue-200 pt-6 space-y-4">
+                                <label class="text-[10px] font-black uppercase mb-2 block text-rose-600 tracking-widest ml-1">Link Hasil Edit Soal (Khusus Admin)</label>
+                                <input type="url" id="soal-hasil-edit" placeholder="Paste Link Google Drive..." class="w-full px-5 py-4 bg-rose-50 border border-rose-200 rounded-xl outline-none focus:ring-2 focus:ring-rose-600 transition text-slate-800 font-bold">
+
+                                <label class="text-[10px] font-black uppercase mb-2 block text-emerald-600 tracking-widest ml-1 mt-4">Link Hasil Nilai (Khusus Admin)</label>
+                                <input type="url" id="soal-hasil-nilai" placeholder="Paste Link Google Drive..." class="w-full px-5 py-4 bg-emerald-50 border border-emerald-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-600 transition text-slate-800 font-bold">
+                            </div>
+                            ` : `
+                            <div id="guru-hasil-edit-container" class="hidden border-t border-blue-200 pt-6 space-y-4">
+                                <label class="text-[10px] font-black uppercase mb-2 block text-rose-600 tracking-widest ml-1">File Hasil Edit Soal (Dari Admin)</label>
+                                <a href="#" id="guru-hasil-edit-link" target="_blank" class="w-full inline-flex justify-center items-center bg-rose-50 hover:bg-rose-100 text-rose-700 font-black px-6 py-4 rounded-xl border border-rose-200 transition-colors shadow-sm transform hover:scale-[1.01] active:scale-95"><i data-lucide="file-check" class="w-5 h-5 mr-3"></i> Buka / Unduh Hasil Edit Admin</a>
+                            </div>
+                            <div id="guru-hasil-nilai-container" class="hidden border-t border-blue-200 pt-6 space-y-4">
+                                <label class="text-[10px] font-black uppercase mb-2 block text-emerald-600 tracking-widest ml-1">File Hasil Nilai (Dari Admin)</label>
+                                <a href="#" id="guru-hasil-nilai-link" target="_blank" class="w-full inline-flex justify-center items-center bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-black px-6 py-4 rounded-xl border border-emerald-200 transition-colors shadow-sm transform hover:scale-[1.01] active:scale-95"><i data-lucide="award" class="w-5 h-5 mr-3"></i> Buka / Unduh Hasil Nilai Admin</a>
+                            </div>
+                            <input type="hidden" id="soal-hasil-edit" value="">
+                            <input type="hidden" id="soal-hasil-nilai" value="">
+                            `}
+                            
+                            <button type="submit" id="btn-submit-soal" class="w-full bg-slate-900 text-white font-black py-4 rounded-xl uppercase text-xs tracking-widest shadow-xl hover:bg-blue-600 transition-all active:scale-95 transform hover:scale-[1.02] mt-6">
+                                <i data-lucide="upload-cloud" class="w-4 h-4 inline mr-2 -mt-1"></i> Unggah Asesmen Sekarang
+                            </button>
+                            <button type="button" onclick="resetSoalForm()" id="btn-cancel-soal" class="hidden w-full bg-slate-100 text-slate-600 font-black py-4 rounded-xl uppercase text-xs tracking-widest shadow-sm hover:bg-slate-200 transition-all active:scale-95 transform mt-3">
+                                Batal Edit
+                            </button>
+                        </form>
+                    </div>
+
+                    <div id="soal-history-container" class="max-w-4xl mx-auto text-left hidden animate-slide-right">
+                        <div class="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm mt-4">
+                            <table class="w-full border-collapse text-sm">
+                                <thead class="bg-[#10141d] text-white border-b">
+                                    <tr>
+                                        <th class="p-4 text-center font-black uppercase text-[10px] tracking-widest whitespace-nowrap w-12">No</th>
+                                        <th class="p-4 text-left font-black uppercase text-[10px] tracking-widest whitespace-nowrap">Info Soal</th>
+                                        <th class="p-4 text-left font-black uppercase text-[10px] tracking-widest whitespace-nowrap">File Lampiran</th>
+                                        <th class="p-4 text-center font-black uppercase text-[10px] tracking-widest whitespace-nowrap w-32">Status</th>
+                                        <th class="p-4 text-center font-black uppercase text-[10px] tracking-widest whitespace-nowrap w-24">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="soal-table-body" class="divide-y divide-slate-100 bg-white">
+                                    <tr><td colspan="5" class="p-10 text-center text-slate-400 italic font-bold">Memuat riwayat...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+            loadSoalOptions();
+        }
+
+        async function loadSoalOptions() {
+            const jaSelect = document.getElementById('soal-jenis-asesmen');
+            const mapelSelect = document.getElementById('soal-mapel');
+            if (!jaSelect || !mapelSelect) return;
+            
+            try {
+                const res = await callGAS({ action: 'getSoalOptions' });
+                if (res && res.result === 'success') {
+                    const currentJa = jaSelect.value;
+                    const currentMapel = mapelSelect.value;
+                    
+                    let activeJa = '';
+                    jaSelect.innerHTML = '<option value="" disabled>Pilih Jenis Asesmen</option>' + res.jenis_asesmen.map(j => {
+                        if (j.status === 'aktif' || j.status === 'active') { activeJa = j.k_as; globalDefaultJa = j.k_as; }
+                        return `<option value="${j.k_as}">${j.k_as}</option>`;
+                    }).join('');
+                    
+                    mapelSelect.innerHTML = '<option value="" disabled selected>Pilih Mata Pelajaran</option>' + res.mapel.map(m => `<option value="${m}">${m}</option>`).join('');
+                    
+                    if (currentJa) {
+                        if (!Array.from(jaSelect.options).some(o => o.value === currentJa)) jaSelect.add(new Option(currentJa, currentJa));
+                        jaSelect.value = currentJa;
+                    } else if (activeJa) {
+                        jaSelect.value = activeJa;
+                    } else {
+                        jaSelect.selectedIndex = 0;
+                    }
+                    if (currentMapel) {
+                        if (!Array.from(mapelSelect.options).some(o => o.value === currentMapel)) mapelSelect.add(new Option(currentMapel, currentMapel));
+                        mapelSelect.value = currentMapel;
+                    }
+                } else {
+                    jaSelect.innerHTML = '<option value="" disabled selected>Data kosong</option>';
+                    mapelSelect.innerHTML = '<option value="" disabled selected>Data kosong</option>';
+                }
+            } catch(e) {
+                jaSelect.innerHTML = '<option value="" disabled selected>Gagal memuat</option>';
+                mapelSelect.innerHTML = '<option value="" disabled selected>Gagal memuat</option>';
+            }
+        }
+
+        function convertGenericFile(input, targetBase64Id, targetNameId) {
+            const file = input.files[0]; 
+            if (!file) return;
+            
+            // Validasi Limit Size (5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                input.value = '';
+                showAlert('File Terlalu Besar', 'Maksimal ukuran file adalah 5MB.', 'error');
+                return;
+            }
+
+            const nameDisplay = document.getElementById(targetNameId);
+            nameDisplay.textContent = file.name;
+            nameDisplay.classList.remove('text-slate-400');
+            nameDisplay.classList.add('text-blue-600', 'font-bold');
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                // Gunakan Data URL murni (termasuk MimeType Base64) agar bisa di-parse di server
+                document.getElementById(targetBase64Id).value = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function handleUploadBankSoal(event) {
+            event.preventDefault();
+            
+            const rowNum = document.getElementById('soal-row-num').value;
+            const jenis_asesmen = document.getElementById('soal-jenis-asesmen').value;
+            const mapel = document.getElementById('soal-mapel').value.trim();
+            const kelas = document.getElementById('soal-kelas').value;
+            
+            const rombelCbs = document.querySelectorAll('input[name="soal-rombel-cb"]:checked');
+            if (rombelCbs.length === 0) {
+                return showAlert('Form Tidak Lengkap', 'Pilih minimal satu Rombel / Bagian Kelas.', 'error');
+            }
+            const rombel = Array.from(rombelCbs).map(cb => cb.value).join(', ');
+            
+            const b64Soal = document.getElementById('soal-base64-word').value;
+            const b64Kisi = document.getElementById('soal-base64-kisi').value;
+            const b64Kunci = document.getElementById('soal-base64-kunci').value;
+            const hasilEditEl = document.getElementById('soal-hasil-edit');
+            const hasilEdit = hasilEditEl ? hasilEditEl.value.trim() : '';
+            const hasilNilaiEl = document.getElementById('soal-hasil-nilai');
+            const hasilNilai = hasilNilaiEl ? hasilNilaiEl.value.trim() : '';
+
+            if (!rowNum && currentUser.role !== 'Admin') {
+                const isLocked = globalBankSoal.some(x => x.jenis_asesmen === jenis_asesmen && x.hasilEdit && x.hasilEdit !== '-');
+                if (isLocked) {
+                    return showAlert('Ditolak', 'Anda sudah tidak bisa mengunggah soal baru untuk Jenis Asesmen ini karena sudah ada file yang dinilai/dikoreksi oleh Admin.', 'error');
+                }
+            }
+
+            if (!rowNum && (!b64Soal || !b64Kisi || !b64Kunci)) {
+                return showAlert('Lampiran Kosong', 'Pastikan Anda telah melampirkan File Soal, Kisi-Kisi, dan Kunci Jawaban.', 'error');
+            }
+
+            setLoading(true);
+            try {
+                const payload = {
+                    action: 'uploadBankSoal',
+                    rowNum: rowNum,
+                    role: currentUser.role,
+                    uploaderName: currentUser.name,
+                    jenis_asesmen: jenis_asesmen,
+                    mapel: mapel,
+                    kelas: kelas,
+                    rombel: rombel,
+                    soalBase64: b64Soal,
+                    kisiBase64: b64Kisi,
+                    kunciBase64: b64Kunci,
+                    hasilEdit: hasilEdit,
+                    hasilNilai: hasilNilai
+                };
+
+                const res = await callGAS(payload);
+                if (res && res.result === 'success') {
+                    showAlert('Sukses', rowNum ? 'Data Asesmen berhasil diperbarui.' : 'Semua file Asesmen berhasil diunggah ke Google Drive dan direkap ke dalam sistem.', 'success');
+                    resetSoalForm(); 
+                    if (rowNum) switchSoalTab('history');
+                } else {
+                    showAlert('Gagal', res.message || 'Gagal mengunggah file. Pastikan ekstensi file sesuai.', 'error');
+                }
+            } catch (e) {
+                showAlert('Ralat', 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda.', 'error');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        function switchSoalTab(tab) {
+            const btnInfo = document.getElementById('tab-info-soal');
+            const btnUpload = document.getElementById('tab-upload-soal');
+            const btnHistory = document.getElementById('tab-history-soal');
+            const containerInfo = document.getElementById('soal-info-container');
+            const containerUpload = document.getElementById('soal-upload-container');
+            const containerHistory = document.getElementById('soal-history-container');
+
+            const activeClass = "px-6 py-2.5 bg-blue-600 text-white rounded-xl font-black text-[10px] uppercase tracking-widest shadow-md transition-colors";
+            const inactiveClass = "px-6 py-2.5 bg-slate-100 text-slate-500 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-slate-200 transition-colors";
+
+            if (btnInfo) btnInfo.className = inactiveClass;
+            if (btnUpload) btnUpload.className = inactiveClass;
+            if (btnHistory) btnHistory.className = inactiveClass;
+            
+            if (containerInfo) containerInfo.classList.add('hidden');
+            if (containerUpload) containerUpload.classList.add('hidden');
+            if (containerHistory) containerHistory.classList.add('hidden');
+
+            if (tab === 'info') {
+                if (btnInfo) btnInfo.className = activeClass;
+                if (containerInfo) containerInfo.classList.remove('hidden');
+            } else if (tab === 'upload') {
+                if (btnUpload) btnUpload.className = activeClass;
+                if (containerUpload) containerUpload.classList.remove('hidden');
+            } else if (tab === 'history') {
+                if (btnHistory) btnHistory.className = activeClass;
+                if (containerHistory) containerHistory.classList.remove('hidden');
+                loadBankSoalHistory();
+            }
+        }
+
+        async function loadBankSoalHistory() {
+            const tbody = document.getElementById('soal-table-body');
+            if (tbody) tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-400 italic font-bold">Memuat riwayat...</td></tr>`;
+            try {
+                const res = await callGAS({ action: 'getBankSoal', role: currentUser.role, uploaderName: currentUser.name });
+                if (res && res.result === 'success') {
+                    globalBankSoal = res.data || [];
+                    renderBankSoalHistory(globalBankSoal);
+                } else {
+                    if (tbody) tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-red-500 font-bold">Gagal memuat riwayat.</td></tr>`;
+                }
+            } catch (e) {
+                if (tbody) tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-red-500 font-bold">Terjadi kesalahan jaringan.</td></tr>`;
+            }
+        }
+
+        function renderBankSoalHistory(data) {
+            const tbody = document.getElementById('soal-table-body');
+            if (!tbody) return;
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-400 font-bold">Belum ada file asesmen yang diunggah.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = data.map((item, idx) => `
+                <tr class="hover:bg-blue-50/50 transition-colors">
+                    <td class="p-4 font-bold text-slate-500 text-center">${idx + 1}</td>
+                    <td class="p-4 text-left">
+                        <div class="font-black text-slate-800 uppercase text-sm mb-1">${item.jenis_asesmen}</div>
+                        <div class="text-[11px] font-bold text-blue-600 uppercase tracking-widest">${item.mapel}</div>
+                        <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Kelas ${item.kelas} - Rombel ${item.rombel}</div>
+                        ${currentUser.role === 'Admin' ? `<div class="text-[9px] text-slate-500 mt-1 uppercase"><i data-lucide="user" class="w-3 h-3 inline"></i> ${item.uploader}</div>` : ''}
+                    </td>
+                    <td class="p-4">
+                        <div class="flex flex-col gap-2">
+                            <a href="${item.soal !== '-' ? item.soal : '#'}" target="_blank" class="text-[10px] font-black uppercase ${item.soal !== '-' ? 'text-blue-600 hover:underline' : 'text-slate-400 pointer-events-none'} flex items-center">
+                                <i data-lucide="file-text" class="w-3 h-3 mr-1"></i> Soal
+                            </a>
+                            <a href="${item.kisi !== '-' ? item.kisi : '#'}" target="_blank" class="text-[10px] font-black uppercase ${item.kisi !== '-' ? 'text-indigo-600 hover:underline' : 'text-slate-400 pointer-events-none'} flex items-center">
+                                <i data-lucide="table" class="w-3 h-3 mr-1"></i> Kisi-kisi
+                            </a>
+                            <a href="${item.kunci !== '-' ? item.kunci : '#'}" target="_blank" class="text-[10px] font-black uppercase ${item.kunci !== '-' ? 'text-green-600 hover:underline' : 'text-slate-400 pointer-events-none'} flex items-center">
+                                <i data-lucide="check-square" class="w-3 h-3 mr-1"></i> Kunci
+                            </a>
+                            ${item.hasilEdit && item.hasilEdit !== '-' ? `
+                            <a href="${item.hasilEdit}" target="_blank" class="text-[10px] font-black uppercase text-rose-600 hover:underline flex items-center mt-1 pt-1 border-t border-slate-100">
+                                <i data-lucide="file-check" class="w-3 h-3 mr-1"></i> Hasil Edit
+                            </a>
+                            ` : `
+                            <span class="text-[10px] font-black uppercase text-slate-400 flex items-center mt-1 pt-1 border-t border-slate-100 cursor-not-allowed">
+                                <i data-lucide="file-x" class="w-3 h-3 mr-1"></i> Belum Ada Edit
+                            </span>
+                            `}
+                            ${item.hasilNilai && item.hasilNilai !== '-' ? `
+                            <a href="${item.hasilNilai}" target="_blank" class="text-[10px] font-black uppercase text-emerald-600 hover:underline flex items-center mt-1 pt-1 border-t border-slate-100">
+                                <i data-lucide="award" class="w-3 h-3 mr-1"></i> Hasil Nilai
+                            </a>
+                            ` : `
+                            <span class="text-[10px] font-black uppercase text-slate-400 flex items-center mt-1 pt-1 border-t border-slate-100 cursor-not-allowed">
+                                <i data-lucide="file-x" class="w-3 h-3 mr-1"></i> Belum Ada Nilai
+                            </span>
+                            `}
+                        </div>
+                    </td>
+                    <td class="p-4 text-center">
+                        <div class="text-[9px] text-slate-500 font-bold uppercase tracking-wider mb-1">Diunggah:</div>
+                        <div class="text-[10px] text-slate-700 font-black mb-2">${item.timestamp}</div>
+                        ${item.edited && item.edited !== '-' ? `
+                            <div class="text-[9px] text-slate-500 font-bold uppercase tracking-wider mb-1">Diedit:</div>
+                            <div class="text-[10px] text-amber-600 font-black">${item.edited}</div>
+                        ` : ''}
+                    </td>
+                    <td class="p-4 text-center">
+                        <button onclick="editBankSoal(${item.rowNum})" class="bg-amber-100 text-amber-700 px-3 py-2 rounded-xl text-[10px] font-black hover:bg-amber-600 hover:text-white transition shadow-sm active:scale-95" title="Edit Baris Ini">
+                            <i data-lucide="edit" class="w-4 h-4 inline"></i> Edit
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function editBankSoal(rowNum) {
+            const item = globalBankSoal.find(x => x.rowNum === rowNum);
+            if (!item) return;
+
+            document.getElementById('form-soal-title').innerHTML = '<i data-lucide="edit" class="w-6 h-6 mr-3 text-amber-600"></i> Edit Asesmen';
+            document.getElementById('soal-row-num').value = item.rowNum;
+            
+            let jaSelect = document.getElementById('soal-jenis-asesmen');
+            if (item.jenis_asesmen && !Array.from(jaSelect.options).some(opt => opt.value === item.jenis_asesmen)) {
+                jaSelect.add(new Option(item.jenis_asesmen, item.jenis_asesmen));
+            }
+            jaSelect.value = item.jenis_asesmen || '';
+
+            let mapelSelect = document.getElementById('soal-mapel');
+            if (item.mapel && !Array.from(mapelSelect.options).some(opt => opt.value === item.mapel)) {
+                mapelSelect.add(new Option(item.mapel, item.mapel));
+            }
+            mapelSelect.value = item.mapel || '';
+            
+            document.getElementById('soal-kelas').value = item.kelas;
+            
+            const rombelArr = (item.rombel || '').split(',').map(r => r.trim());
+            document.querySelectorAll('input[name="soal-rombel-cb"]').forEach(cb => { cb.checked = rombelArr.includes(cb.value); });
+            
+            const hasilEditEl = document.getElementById('soal-hasil-edit');
+            if (hasilEditEl) hasilEditEl.value = (item.hasilEdit && item.hasilEdit !== '-') ? item.hasilEdit : '';
+            
+            const hasilNilaiEl = document.getElementById('soal-hasil-nilai');
+            if (hasilNilaiEl) hasilNilaiEl.value = (item.hasilNilai && item.hasilNilai !== '-') ? item.hasilNilai : '';
+            
+            const guruEditContainer = document.getElementById('guru-hasil-edit-container');
+            const guruEditLink = document.getElementById('guru-hasil-edit-link');
+            if (guruEditContainer && guruEditLink) {
+                if (item.hasilEdit && item.hasilEdit !== '-') {
+                    guruEditLink.href = item.hasilEdit;
+                    guruEditContainer.classList.remove('hidden');
+                } else {
+                    guruEditContainer.classList.add('hidden');
+                }
+            }
+            
+            const guruNilaiContainer = document.getElementById('guru-hasil-nilai-container');
+            const guruNilaiLink = document.getElementById('guru-hasil-nilai-link');
+            if (guruNilaiContainer && guruNilaiLink) {
+                if (item.hasilNilai && item.hasilNilai !== '-') {
+                    guruNilaiLink.href = item.hasilNilai;
+                    guruNilaiContainer.classList.remove('hidden');
+                } else {
+                    guruNilaiContainer.classList.add('hidden');
+                }
+            }
+            
+            const hasEditFromAdmin = (item.hasilEdit && item.hasilEdit !== '-');
+            if (hasEditFromAdmin && currentUser.role !== 'Admin') {
+                showAlert('Terkunci', 'Soal ini telah mendapat Hasil Edit dari Admin, Anda tidak dapat mengunggah file baru lagi.', 'error');
+                document.getElementById('btn-submit-soal').classList.add('hidden');
+                ['word', 'kisi', 'kunci'].forEach(type => { const input = document.getElementById(`soal-file-${type}`); if (input) input.disabled = true; });
+            } else {
+                document.getElementById('btn-submit-soal').classList.remove('hidden');
+                ['word', 'kisi', 'kunci'].forEach(type => { const input = document.getElementById(`soal-file-${type}`); if (input) input.disabled = false; });
+            }
+
+            ['word', 'kisi', 'kunci'].forEach(type => {
+                document.getElementById(`soal-file-${type}`).value = '';
+                document.getElementById(`soal-base64-${type}`).value = '';
+                document.getElementById(`${type === 'word' ? 'soal' : type}-file-name`).textContent = 'Pilih jika ingin mengganti file lama';
+                document.getElementById(`${type === 'word' ? 'soal' : type}-file-name`).className = "block text-[10px] text-amber-600 font-bold truncate mt-0.5";
+                
+                document.getElementById(`soal-file-${type}`).required = false;
+                document.getElementById(`${type === 'word' ? 'soal' : type}-req-word`).classList.add('hidden');
+            });
+
+            document.getElementById('btn-submit-soal').innerHTML = '<i data-lucide="save" class="w-4 h-4 inline mr-2 -mt-1"></i> Simpan Perubahan';
+            document.getElementById('btn-cancel-soal').classList.remove('hidden');
+
+            switchSoalTab('upload');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function resetSoalForm() {
+            document.getElementById('form-soal-title').innerHTML = '<i data-lucide="folder-up" class="w-6 h-6 mr-3 text-blue-600"></i> Asesmen';
+            document.getElementById('soal-row-num').value = '';
+            document.getElementById('soal-jenis-asesmen').value = globalDefaultJa || '';
+            document.getElementById('soal-mapel').value = '';
+            document.getElementById('soal-kelas').value = '';
+            
+            document.querySelectorAll('input[name="soal-rombel-cb"]').forEach(cb => cb.checked = false);
+            
+            const hasilEditEl = document.getElementById('soal-hasil-edit');
+            if (hasilEditEl) hasilEditEl.value = '';
+            
+            const guruEditContainer = document.getElementById('guru-hasil-edit-container');
+            if (guruEditContainer) guruEditContainer.classList.add('hidden');
+            
+            const hasilNilaiEl = document.getElementById('soal-hasil-nilai');
+            if (hasilNilaiEl) hasilNilaiEl.value = '';
+            
+            const guruNilaiContainer = document.getElementById('guru-hasil-nilai-container');
+            if (guruNilaiContainer) guruNilaiContainer.classList.add('hidden');
+            
+            ['word', 'kisi', 'kunci'].forEach(type => {
+                document.getElementById(`soal-file-${type}`).value = '';
+                document.getElementById(`soal-base64-${type}`).value = '';
+                document.getElementById(`${type === 'word' ? 'soal' : type}-file-name`).textContent = 'Maks. 5MB (.doc/.xls)';
+                document.getElementById(`${type === 'word' ? 'soal' : type}-file-name`).className = "block text-[10px] text-slate-400 truncate mt-0.5";
+                
+                document.getElementById(`soal-file-${type}`).disabled = false;
+                document.getElementById(`soal-file-${type}`).required = true;
+                document.getElementById(`${type === 'word' ? 'soal' : type}-req-word`).classList.remove('hidden');
+            });
+
+            document.getElementById('btn-submit-soal').innerHTML = '<i data-lucide="upload-cloud" class="w-4 h-4 inline mr-2 -mt-1"></i> Unggah Asesmen Sekarang';
+            document.getElementById('btn-cancel-soal').classList.add('hidden');
             if (window.lucide) lucide.createIcons();
         }
 
@@ -4087,6 +4749,7 @@
                 'menu-settings': 'Pengaturan Menu',
                 'menu-cetak-kartu': 'Cetak Kartu CBT',
                 'menu-denah': 'Denah + Presensi',
+                'menu-upload-soal': 'Asesmen',
                 'menu-token': 'Token CBT',
                 'menu-laporan': 'Laporan Kegiatan',
                 'menu-bap': 'Berita Acara',
@@ -4099,7 +4762,9 @@
                 'menu-kartu': 'Kartu Peserta',
                 'menu-app': 'Unduh Aplikasi',
                 'menu-hasil-test': 'Hasil Test',
-                'menu-sertifikat': 'Sertifikat Peserta/Pendamping'
+                'menu-sertifikat': 'Sertifikat Peserta/Pendamping',
+                'menu-erapor': 'eRapor',
+                'menu-dapodik': 'Dapodik'
             };
 
             let tableHtml = `
