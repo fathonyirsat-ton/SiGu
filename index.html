@@ -10,7 +10,7 @@
     <!-- ======================================================================= -->
     <script>
         const CONFIG = {
-            API_URL: 'https://script.google.com/macros/s/AKfycbz2_ovdb8H06GbOsnD00c0exX6dKHc3Dn4eTDY341L7RDnZDa8QhUAgF9P8ypeTh2JI/exec',
+            API_URL: 'https://script.google.com/macros/s/AKfycbwFlgTpHAF6lUEjV1u00RcZx7RujTKbG1m-9IwJ4GY1DaPtQYGLYFdTX-MT3-4x1opE/exec',
             LOGO_URL: 'https://lh3.googleusercontent.com/d/1BqLTq6mgStBOtbV8eWUwgmuvlsqjsqtx',
             QRIS_URL: 'https://drive.google.com/thumbnail?id=1zlxMNvEt7a3Pos_Zt8qq6hUtleI2UTj_&sz=w1000'
         };
@@ -1768,11 +1768,49 @@
                             
                             ${currentUser.role === 'Admin' ? `
                             <div class="border-t border-blue-200 pt-6 space-y-4">
-                                <label class="text-[10px] font-black uppercase mb-2 block text-rose-600 tracking-widest ml-1">Link Hasil Edit Soal (Khusus Admin)</label>
-                                <input type="url" id="soal-hasil-edit" placeholder="Paste Link Google Drive..." class="w-full px-5 py-4 bg-rose-50 border border-rose-200 rounded-xl outline-none focus:ring-2 focus:ring-rose-600 transition text-slate-800 font-bold">
+                                <p class="text-[10px] font-black uppercase text-blue-800 tracking-widest ml-1 mb-2">Lampiran Khusus Admin</p>
 
-                                <label class="text-[10px] font-black uppercase mb-2 block text-emerald-600 tracking-widest ml-1 mt-4">Link Hasil Nilai (Khusus Admin)</label>
-                                <input type="url" id="soal-hasil-nilai" placeholder="Paste Link Google Drive..." class="w-full px-5 py-4 bg-emerald-50 border border-emerald-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-600 transition text-slate-800 font-bold">
+                                <!-- Hasil Edit Admin -->
+                                <div class="flex flex-col gap-2">
+                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 bg-rose-50 p-4 rounded-xl border border-rose-200">
+                                        <div class="w-10 h-10 bg-rose-200 text-rose-700 rounded-lg flex items-center justify-center shrink-0">
+                                            <i data-lucide="file-check" class="w-5 h-5"></i>
+                                        </div>
+                                        <div class="flex-1 w-full min-w-0">
+                                            <span class="block text-xs font-black uppercase text-rose-800">File Hasil Edit Soal</span>
+                                            <span id="hasil-edit-name" class="block text-[10px] text-rose-500 truncate mt-0.5">Maks. 5MB (Bisa bentuk Gambar/Doc/PDF)</span>
+                                        </div>
+                                        <label class="shrink-0 bg-rose-600 hover:bg-rose-700 text-white px-6 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest cursor-pointer shadow-md transition-transform hover:-translate-y-0.5 active:scale-95 w-full md:w-auto text-center">
+                                            Pilih File
+                                            <input type="file" id="soal-file-hasil-edit" accept=".doc, .docx, .xls, .xlsx, .pdf, image/*, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf" class="hidden" onchange="convertGenericFile(this, 'soal-base64-hasil-edit', 'hasil-edit-name')">
+                                        </label>
+                                        <input type="hidden" id="soal-base64-hasil-edit">
+                                    </div>
+                                    <a href="#" id="admin-hasil-edit-link" target="_blank" class="hidden w-full md:w-auto inline-flex items-center text-[10px] font-black uppercase text-rose-600 hover:underline px-2">
+                                        <i data-lucide="external-link" class="w-3 h-3 mr-1"></i> Buka File Hasil Edit Saat Ini
+                                    </a>
+                                </div>
+
+                                <!-- Hasil Nilai Admin -->
+                                <div class="flex flex-col gap-2 mt-4">
+                                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                                        <div class="w-10 h-10 bg-emerald-200 text-emerald-700 rounded-lg flex items-center justify-center shrink-0">
+                                            <i data-lucide="award" class="w-5 h-5"></i>
+                                        </div>
+                                        <div class="flex-1 w-full min-w-0">
+                                            <span class="block text-xs font-black uppercase text-emerald-800">File Hasil Nilai</span>
+                                            <span id="hasil-nilai-name" class="block text-[10px] text-emerald-500 truncate mt-0.5">Maks. 5MB (Bisa bentuk Gambar/Doc/PDF)</span>
+                                        </div>
+                                        <label class="shrink-0 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest cursor-pointer shadow-md transition-transform hover:-translate-y-0.5 active:scale-95 w-full md:w-auto text-center">
+                                            Pilih File
+                                            <input type="file" id="soal-file-hasil-nilai" accept=".doc, .docx, .xls, .xlsx, .pdf, image/*, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf" class="hidden" onchange="convertGenericFile(this, 'soal-base64-hasil-nilai', 'hasil-nilai-name')">
+                                        </label>
+                                        <input type="hidden" id="soal-base64-hasil-nilai">
+                                    </div>
+                                    <a href="#" id="admin-hasil-nilai-link" target="_blank" class="hidden w-full md:w-auto inline-flex items-center text-[10px] font-black uppercase text-emerald-600 hover:underline px-2">
+                                        <i data-lucide="external-link" class="w-3 h-3 mr-1"></i> Buka File Hasil Nilai Saat Ini
+                                    </a>
+                                </div>
                             </div>
                             ` : `
                             <div id="guru-hasil-edit-container" class="hidden border-t border-blue-200 pt-6 space-y-4">
@@ -1783,8 +1821,6 @@
                                 <label class="text-[10px] font-black uppercase mb-2 block text-emerald-600 tracking-widest ml-1">File Hasil Nilai (Dari Admin)</label>
                                 <a href="#" id="guru-hasil-nilai-link" target="_blank" class="w-full inline-flex justify-center items-center bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-black px-6 py-4 rounded-xl border border-emerald-200 transition-colors shadow-sm transform hover:scale-[1.01] active:scale-95"><i data-lucide="award" class="w-5 h-5 mr-3"></i> Buka / Unduh Hasil Nilai Admin</a>
                             </div>
-                            <input type="hidden" id="soal-hasil-edit" value="">
-                            <input type="hidden" id="soal-hasil-nilai" value="">
                             `}
                             
                             <button type="submit" id="btn-submit-soal" class="w-full bg-slate-900 text-white font-black py-4 rounded-xl uppercase text-xs tracking-widest shadow-xl hover:bg-blue-600 transition-all active:scale-95 transform hover:scale-[1.02] mt-6">
@@ -1902,10 +1938,16 @@
             const b64Soal = document.getElementById('soal-base64-word').value;
             const b64Kisi = document.getElementById('soal-base64-kisi').value;
             const b64Kunci = document.getElementById('soal-base64-kunci').value;
-            const hasilEditEl = document.getElementById('soal-hasil-edit');
-            const hasilEdit = hasilEditEl ? hasilEditEl.value.trim() : '';
-            const hasilNilaiEl = document.getElementById('soal-hasil-nilai');
-            const hasilNilai = hasilNilaiEl ? hasilNilaiEl.value.trim() : '';
+            
+            const b64EditEl = document.getElementById('soal-base64-hasil-edit');
+            const hasilEditBase64 = b64EditEl ? b64EditEl.value : '';
+            const fileEditEl = document.getElementById('soal-file-hasil-edit');
+            const hasilEditExt = fileEditEl && fileEditEl.files[0] ? fileEditEl.files[0].name.split('.').pop() : '';
+
+            const b64NilaiEl = document.getElementById('soal-base64-hasil-nilai');
+            const hasilNilaiBase64 = b64NilaiEl ? b64NilaiEl.value : '';
+            const fileNilaiEl = document.getElementById('soal-file-hasil-nilai');
+            const hasilNilaiExt = fileNilaiEl && fileNilaiEl.files[0] ? fileNilaiEl.files[0].name.split('.').pop() : '';
 
             if (!rowNum && currentUser.role !== 'Admin') {
                 const isLocked = globalBankSoal.some(x => x.jenis_asesmen === jenis_asesmen && x.hasilEdit && x.hasilEdit !== '-');
@@ -1932,8 +1974,10 @@
                     soalBase64: b64Soal,
                     kisiBase64: b64Kisi,
                     kunciBase64: b64Kunci,
-                    hasilEdit: hasilEdit,
-                    hasilNilai: hasilNilai
+                    hasilEditBase64: hasilEditBase64,
+                    hasilEditExt: hasilEditExt,
+                    hasilNilaiBase64: hasilNilaiBase64,
+                    hasilNilaiExt: hasilNilaiExt
                 };
 
                 const res = await callGAS(payload);
@@ -2089,11 +2133,33 @@
             const rombelArr = (item.rombel || '').split(',').map(r => r.trim());
             document.querySelectorAll('input[name="soal-rombel-cb"]').forEach(cb => { cb.checked = rombelArr.includes(cb.value); });
             
-            const hasilEditEl = document.getElementById('soal-hasil-edit');
-            if (hasilEditEl) hasilEditEl.value = (item.hasilEdit && item.hasilEdit !== '-') ? item.hasilEdit : '';
-            
-            const hasilNilaiEl = document.getElementById('soal-hasil-nilai');
-            if (hasilNilaiEl) hasilNilaiEl.value = (item.hasilNilai && item.hasilNilai !== '-') ? item.hasilNilai : '';
+            if (currentUser.role === 'Admin') {
+                const b64Edit = document.getElementById('soal-base64-hasil-edit');
+                if (b64Edit) b64Edit.value = '';
+                const fEdit = document.getElementById('soal-file-hasil-edit');
+                if (fEdit) fEdit.value = '';
+                const nEdit = document.getElementById('hasil-edit-name');
+                if (nEdit) nEdit.textContent = 'Pilih file jika ingin mengganti';
+                
+                const aEdit = document.getElementById('admin-hasil-edit-link');
+                if (aEdit) {
+                    if (item.hasilEdit && item.hasilEdit !== '-') { aEdit.href = item.hasilEdit; aEdit.classList.remove('hidden'); }
+                    else { aEdit.classList.add('hidden'); }
+                }
+                
+                const b64Nilai = document.getElementById('soal-base64-hasil-nilai');
+                if (b64Nilai) b64Nilai.value = '';
+                const fNilai = document.getElementById('soal-file-hasil-nilai');
+                if (fNilai) fNilai.value = '';
+                const nNilai = document.getElementById('hasil-nilai-name');
+                if (nNilai) nNilai.textContent = 'Pilih file jika ingin mengganti';
+                
+                const aNilai = document.getElementById('admin-hasil-nilai-link');
+                if (aNilai) {
+                    if (item.hasilNilai && item.hasilNilai !== '-') { aNilai.href = item.hasilNilai; aNilai.classList.remove('hidden'); }
+                    else { aNilai.classList.add('hidden'); }
+                }
+            }
             
             const guruEditContainer = document.getElementById('guru-hasil-edit-container');
             const guruEditLink = document.getElementById('guru-hasil-edit-link');
@@ -2153,14 +2219,28 @@
             
             document.querySelectorAll('input[name="soal-rombel-cb"]').forEach(cb => cb.checked = false);
             
-            const hasilEditEl = document.getElementById('soal-hasil-edit');
-            if (hasilEditEl) hasilEditEl.value = '';
+            if (currentUser.role === 'Admin') {
+                const b64Edit = document.getElementById('soal-base64-hasil-edit');
+                if (b64Edit) b64Edit.value = '';
+                const fEdit = document.getElementById('soal-file-hasil-edit');
+                if (fEdit) fEdit.value = '';
+                const nEdit = document.getElementById('hasil-edit-name');
+                if (nEdit) nEdit.textContent = 'Maks. 5MB (Bisa bentuk Gambar/Doc/PDF)';
+                const aEdit = document.getElementById('admin-hasil-edit-link');
+                if (aEdit) aEdit.classList.add('hidden');
+
+                const b64Nilai = document.getElementById('soal-base64-hasil-nilai');
+                if (b64Nilai) b64Nilai.value = '';
+                const fNilai = document.getElementById('soal-file-hasil-nilai');
+                if (fNilai) fNilai.value = '';
+                const nNilai = document.getElementById('hasil-nilai-name');
+                if (nNilai) nNilai.textContent = 'Maks. 5MB (Bisa bentuk Gambar/Doc/PDF)';
+                const aNilai = document.getElementById('admin-hasil-nilai-link');
+                if (aNilai) aNilai.classList.add('hidden');
+            }
             
             const guruEditContainer = document.getElementById('guru-hasil-edit-container');
             if (guruEditContainer) guruEditContainer.classList.add('hidden');
-            
-            const hasilNilaiEl = document.getElementById('soal-hasil-nilai');
-            if (hasilNilaiEl) hasilNilaiEl.value = '';
             
             const guruNilaiContainer = document.getElementById('guru-hasil-nilai-container');
             if (guruNilaiContainer) guruNilaiContainer.classList.add('hidden');
