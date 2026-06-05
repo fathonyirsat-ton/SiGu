@@ -10,7 +10,7 @@
     <!-- ======================================================================= -->
     <script>
         const CONFIG = {
-            API_URL: 'https://script.google.com/macros/s/AKfycbyTKh3491_SUJB2ngnJ8DMFlTTieCaew2FVd6rjyClOkGtziyDxcjbb9BiK7ynPH81m/exec',
+            API_URL: 'https://script.google.com/macros/s/AKfycbzYyDggmiR63PxEHX5cfptRLWglsdGMy_H81nL-zmVlf20svU9ZyBCth9fs11bTgbfy/exec',
             LOGO_URL: 'https://lh3.googleusercontent.com/d/1BqLTq6mgStBOtbV8eWUwgmuvlsqjsqtx',
             QRIS_URL: 'https://drive.google.com/thumbnail?id=1zlxMNvEt7a3Pos_Zt8qq6hUtleI2UTj_&sz=w1000'
         };
@@ -1260,7 +1260,7 @@
             setLoading(true);
             try {
                 const r = await callGAS({ action: 'forgotPassword', email: em, wa: wa });
-                if (r && r.result === 'success') { showAlert('Sukses', 'Password Anda telah berhasil dikirim ke nomor WhatsApp terkait.', 'success'); } 
+                if (r && r.result === 'success') { showAlert('Sukses', 'Informasi login Anda telah berhasil dikirim ke Email dan nomor WhatsApp yang terdaftar.', 'success'); } 
                 else { showAlert('Gagal', r.message || 'Email dan No HP (WhatsApp) tidak cocok dengan database kami.', 'error'); }
             } catch (e) {
                 console.error("Error Lupa Password:", e);
