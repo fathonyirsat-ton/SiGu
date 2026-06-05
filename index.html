@@ -10,7 +10,7 @@
     <!-- ======================================================================= -->
     <script>
         const CONFIG = {
-            API_URL: 'https://script.google.com/macros/s/AKfycbxqohQJ_h1d0uqZU06urIMZ-m4vaygKV5bemIe2XnoHPVHUFp8oVibsXXfdEBeWQOIP/exec',
+            API_URL: 'https://script.google.com/macros/s/AKfycbyTKh3491_SUJB2ngnJ8DMFlTTieCaew2FVd6rjyClOkGtziyDxcjbb9BiK7ynPH81m/exec',
             LOGO_URL: 'https://lh3.googleusercontent.com/d/1BqLTq6mgStBOtbV8eWUwgmuvlsqjsqtx',
             QRIS_URL: 'https://drive.google.com/thumbnail?id=1zlxMNvEt7a3Pos_Zt8qq6hUtleI2UTj_&sz=w1000'
         };
@@ -813,6 +813,9 @@
                     if (globalMenuSettings && !globalMenuSettings['menu-upload-soal']) {
                         globalMenuSettings['menu-upload-soal'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
                     }
+                    if (globalMenuSettings && !globalMenuSettings['menu-std-penilaian']) {
+                        globalMenuSettings['menu-std-penilaian'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
+                    }
                     
                     localStorage.setItem('sigu_menu_settings', JSON.stringify(globalMenuSettings));
                 }
@@ -822,10 +825,11 @@
             
             if (!globalMenuSettings) {
                 initDefaultMenuSettings();
-            } else if (!globalMenuSettings['menu-erapor'] || !globalMenuSettings['menu-dapodik'] || !globalMenuSettings['menu-upload-soal']) {
+            } else if (!globalMenuSettings['menu-erapor'] || !globalMenuSettings['menu-dapodik'] || !globalMenuSettings['menu-upload-soal'] || !globalMenuSettings['menu-std-penilaian']) {
                 if (!globalMenuSettings['menu-erapor']) globalMenuSettings['menu-erapor'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': true, 'Siswa': true };
                 if (!globalMenuSettings['menu-dapodik']) globalMenuSettings['menu-dapodik'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
                 if (!globalMenuSettings['menu-upload-soal']) globalMenuSettings['menu-upload-soal'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
+                if (!globalMenuSettings['menu-std-penilaian']) globalMenuSettings['menu-std-penilaian'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
                 localStorage.setItem('sigu_menu_settings', JSON.stringify(globalMenuSettings));
             }
         }
@@ -865,13 +869,15 @@
                     'menu-sertifikat': { 'Admin': false, 'Staff': false, 'Guru': false, 'Pendamping': true, 'Siswa': true },
                     'menu-erapor': { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': true, 'Siswa': true },
                     'menu-dapodik': { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false },
-                    'menu-upload-soal': { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false }
+                    'menu-upload-soal': { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false },
+                    'menu-std-penilaian': { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false }
                 };
                 localStorage.setItem('sigu_menu_settings', JSON.stringify(globalMenuSettings));
-            } else if (!globalMenuSettings['menu-erapor'] || !globalMenuSettings['menu-dapodik'] || !globalMenuSettings['menu-upload-soal']) {
+            } else if (!globalMenuSettings['menu-erapor'] || !globalMenuSettings['menu-dapodik'] || !globalMenuSettings['menu-upload-soal'] || !globalMenuSettings['menu-std-penilaian']) {
                 if (!globalMenuSettings['menu-erapor']) globalMenuSettings['menu-erapor'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': true, 'Siswa': true };
                 if (!globalMenuSettings['menu-dapodik']) globalMenuSettings['menu-dapodik'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
                 if (!globalMenuSettings['menu-upload-soal']) globalMenuSettings['menu-upload-soal'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
+                if (!globalMenuSettings['menu-std-penilaian']) globalMenuSettings['menu-std-penilaian'] = { 'Admin': true, 'Staff': true, 'Guru': true, 'Pendamping': false, 'Siswa': false };
                 localStorage.setItem('sigu_menu_settings', JSON.stringify(globalMenuSettings));
             }
         }
@@ -1426,7 +1432,7 @@
             let menuHtml = '';
 
             // Bagian Menu Panel Admin / Pendamping
-            const adminMenus = ['menu-admin-dashboard', 'menu-profil', 'menu-petunjuk', 'menu-jadwal-siswa', 'menu-peserta', 'menu-jadwal', 'menu-cetak-kartu', 'menu-denah', 'menu-upload-soal', 'menu-token', 'menu-laporan', 'menu-bap', 'menu-cetak-sertifikat', 'menu-sertifikat', 'menu-links', 'menu-erapor', 'menu-dapodik', 'menu-settings'];
+            const adminMenus = ['menu-admin-dashboard', 'menu-profil', 'menu-petunjuk', 'menu-jadwal-siswa', 'menu-peserta', 'menu-jadwal', 'menu-cetak-kartu', 'menu-denah', 'menu-token', 'menu-upload-soal', 'menu-laporan', 'menu-bap', 'menu-cetak-sertifikat', 'menu-sertifikat', 'menu-std-penilaian', 'menu-erapor', 'menu-dapodik', 'menu-settings', 'menu-links'];
             let hasAdminMenu = false;
             adminMenus.forEach(m => {
                 if (checkMenuPermission(m, u.role)) hasAdminMenu = true;
@@ -1459,14 +1465,14 @@
                 if (checkMenuPermission('menu-denah', u.role)) {
                     menuHtml += `<button onclick="viewDenahRuang()" id="menu-denah" class="${baseClass} text-slate-300"><i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Denah + Presensi</button>`;
                 }
-                if (checkMenuPermission('menu-upload-soal', u.role)) {
-                    menuHtml += `<button onclick="viewUploadSoal()" id="menu-upload-soal" class="${baseClass} text-slate-300"><i data-lucide="folder-up" class="w-5 h-5 mr-3"></i> Asesmen</button>`;
-                }
                 if (checkMenuPermission('menu-token', u.role)) {
                     menuHtml += `<button onclick="viewAdminTokenCBT()" id="menu-token" class="${baseClass} text-slate-300"><i data-lucide="key" class="w-5 h-5 mr-3"></i> Token CBT</button>`;
                 }
                 if (checkMenuPermission('menu-laporan', u.role)) {
                     menuHtml += `<button onclick="viewAdminLaporan()" id="menu-laporan" class="${baseClass} text-slate-300"><i data-lucide="bar-chart-2" class="w-5 h-5 mr-3"></i> Laporan Kegiatan</button>`;
+                }
+                if (checkMenuPermission('menu-upload-soal', u.role)) {
+                    menuHtml += `<button onclick="viewUploadSoal()" id="menu-upload-soal" class="${baseClass} text-slate-300"><i data-lucide="folder-up" class="w-5 h-5 mr-3"></i> Asesmen</button>`;
                 }
                 if (checkMenuPermission('menu-bap', u.role)) {
                     menuHtml += `<button onclick="viewAdminBAP()" id="menu-bap" class="${baseClass} text-slate-300"><i data-lucide="file-text" class="w-5 h-5 mr-3"></i> Berita Acara</button>`;
@@ -1481,8 +1487,8 @@
                         menuHtml += `<button class="${baseClass} opacity-30 cursor-not-allowed hover:translate-x-0"><i data-lucide="award" class="w-5 h-5 mr-3"></i> Sertifikat <span class="ml-auto text-[8px] bg-white/20 px-2 py-1 rounded-md">Terkunci</span></button>`;
                     }
                 }
-                if (checkMenuPermission('menu-links', u.role)) {
-                    menuHtml += `<button onclick="viewAdminLinks()" id="menu-links" class="${baseClass} text-slate-300"><i data-lucide="link" class="w-5 h-5 mr-3"></i> Link Aplikasi</button>`;
+                if (checkMenuPermission('menu-std-penilaian', u.role)) {
+                    menuHtml += `<button onclick="viewStdPenilaian()" id="menu-std-penilaian" class="${baseClass} text-slate-300"><i data-lucide="check-circle" class="w-5 h-5 mr-3"></i> Std. Penilaian</button>`;
                 }
                 if (checkMenuPermission('menu-erapor', u.role)) {
                     menuHtml += `<button onclick="viewEraporInfo()" id="menu-erapor" class="${baseClass} text-slate-300"><i data-lucide="file-text" class="w-5 h-5 mr-3"></i> eRapor</button>`;
@@ -1492,6 +1498,9 @@
                 }
                 if (checkMenuPermission('menu-settings', u.role)) {
                     menuHtml += `<button onclick="viewAdminMenuSettings()" id="menu-settings" class="${baseClass} text-slate-300"><i data-lucide="settings" class="w-5 h-5 mr-3"></i> Pengaturan Menu</button>`;
+                }
+                if (checkMenuPermission('menu-links', u.role)) {
+                    menuHtml += `<button onclick="viewAdminLinks()" id="menu-links" class="${baseClass} text-slate-300"><i data-lucide="link" class="w-5 h-5 mr-3"></i> Link Aplikasi</button>`;
                 }
             }
 
@@ -1624,6 +1633,79 @@
                             <button onclick="window.open('http://112.78.44.187:5774/', '_blank')" class="w-full sm:w-auto inline-flex justify-center items-center bg-teal-600 hover:bg-teal-700 text-white px-10 py-5 rounded-2xl text-xs font-black uppercase tracking-widest shadow-lg transition-transform hover:scale-105 active:scale-95 border border-teal-500">
                                 <i data-lucide="external-link" class="w-5 h-5 mr-3"></i> Lanjutkan ke Dapodik
                             </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function viewStdPenilaian() {
+            setActiveMenu('menu-std-penilaian');
+            const dc = document.getElementById('dashboard-content');
+            if (!dc) return;
+            
+            const u = currentUser;
+            
+            let linksHtml = '';
+            for (let i = 1; i <= 10; i++) {
+                let mpName = '';
+                const foundKey = Object.keys(u).find(k => {
+                    let clean = k.toLowerCase().replace(/[^a-z0-9]/g, '');
+                    return clean === `mp${i}` || clean === `matapelajaran${i}` || clean === `mapel${i}`;
+                });
+                if (foundKey) mpName = u[foundKey];
+
+                let mpLink = '';
+                const foundLinkKey = Object.keys(u).find(k => {
+                    let clean = k.toLowerCase().replace(/[^a-z0-9]/g, '');
+                    return clean === `lmp${i}` || clean === `linkmp${i}` || clean === `link${i}` || clean === `linkmatapelajaran${i}` || clean === `linkmapel${i}`;
+                });
+                if (foundLinkKey) mpLink = u[foundLinkKey];
+                
+                if (mpName && mpName.trim() !== '' && mpName !== '-' && mpLink && mpLink.trim() !== '' && mpLink !== '-') {
+                    linksHtml += `
+                        <button onclick="window.open('${mpLink}', '_blank')" class="w-full sm:w-auto inline-flex justify-center items-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl text-xs font-black uppercase tracking-widest shadow-lg transition-transform hover:scale-105 active:scale-95 border border-blue-500 m-2">
+                            <i data-lucide="external-link" class="w-4 h-4 mr-2"></i> ${mpName}
+                        </button>
+                    `;
+                }
+            }
+
+            if (linksHtml === '') {
+                linksHtml = `
+                    <div class="col-span-full p-8 border-2 border-dashed border-slate-200 rounded-xl text-center text-slate-400 font-bold w-full max-w-md mx-auto mt-4">
+                        <i data-lucide="link-2-off" class="w-10 h-10 mx-auto mb-3 opacity-50"></i>
+                        Belum ada link Standar Penilaian yang ditugaskan kepada Anda.
+                    </div>
+                `;
+            }
+
+            dc.innerHTML = `
+                <div class="bg-white p-8 md:p-12 rounded-[3rem] border shadow-sm font-bold text-center animate-scale-in">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-slate-100 pb-6">
+                        <div class="text-center md:text-left">
+                            <h3 class="text-2xl font-black uppercase text-slate-800">Standar Penilaian</h3>
+                            <p class="text-sm text-slate-500 mt-1 leading-relaxed">Informasi dan tautan akses untuk Standar Penilaian.</p>
+                        </div>
+                        <button onclick="refreshSiswaData()" class="px-5 py-2.5 bg-blue-50 text-blue-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-sm active:scale-95 flex items-center group shrink-0">
+                            <i data-lucide="refresh-cw" class="w-4 h-4 mr-2 group-hover:rotate-180 transition-transform duration-500"></i> Refresh Data
+                        </button>
+                    </div>
+                    
+                    <div class="max-w-3xl mx-auto text-left">
+                        <div class="bg-blue-50 border border-blue-200 rounded-[2rem] p-8 md:p-10 transition-transform duration-300 hover:scale-[1.01] flex flex-col justify-center items-center text-center shadow-sm animate-slide-right">
+                            <div class="w-20 h-20 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl animate-pulse-soft">
+                                <i data-lucide="check-circle" class="w-10 h-10"></i>
+                            </div>
+                            <h4 class="font-black text-xl text-blue-900 uppercase tracking-tight mb-4">Akses Standar Penilaian</h4>
+                            <p class="text-sm text-blue-800 font-bold mb-8 leading-relaxed max-w-lg mx-auto">
+                                Silakan gunakan tombol tautan di bawah ini untuk mengakses informasi Standar Penilaian sesuai dengan kelas dan mata pelajaran yang Anda ampu.
+                            </p>
+                            
+                            <div class="flex flex-wrap justify-center w-full">
+                                ${linksHtml}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -4890,6 +4972,7 @@
                 'menu-app': 'Unduh Aplikasi',
                 'menu-hasil-test': 'Hasil Test',
                 'menu-sertifikat': 'Sertifikat Peserta/Pendamping',
+                'menu-std-penilaian': 'Std. Penilaian',
                 'menu-erapor': 'eRapor',
                 'menu-dapodik': 'Dapodik'
             };
