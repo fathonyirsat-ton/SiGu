@@ -10,7 +10,7 @@
     <!-- ======================================================================= -->
     <script>
         const CONFIG = {
-            API_URL: 'https://script.google.com/macros/s/AKfycbwFlgTpHAF6lUEjV1u00RcZx7RujTKbG1m-9IwJ4GY1DaPtQYGLYFdTX-MT3-4x1opE/exec',
+            API_URL: 'https://script.google.com/macros/s/AKfycbxqohQJ_h1d0uqZU06urIMZ-m4vaygKV5bemIe2XnoHPVHUFp8oVibsXXfdEBeWQOIP/exec',
             LOGO_URL: 'https://lh3.googleusercontent.com/d/1BqLTq6mgStBOtbV8eWUwgmuvlsqjsqtx',
             QRIS_URL: 'https://drive.google.com/thumbnail?id=1zlxMNvEt7a3Pos_Zt8qq6hUtleI2UTj_&sz=w1000'
         };
@@ -1724,11 +1724,11 @@
                                     </div>
                                     <div class="flex-1 w-full min-w-0">
                                         <span class="block text-xs font-black uppercase text-slate-700">File Soal Ujian (Word) <span id="soal-req-word" class="text-red-500">*</span></span>
-                                        <span id="soal-file-name" class="block text-[10px] text-slate-400 truncate mt-0.5">Maks. 5MB (.doc, .docx)</span>
+                                        <span id="soal-file-name" class="block text-[10px] text-slate-400 truncate mt-0.5">Maks. 5MB (.doc, .docx, .docm)</span>
                                     </div>
                                     <label class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest cursor-pointer shadow-md transition-transform hover:-translate-y-0.5 active:scale-95 w-full md:w-auto text-center">
                                         Pilih File
-                                        <input type="file" id="soal-file-word" accept=".doc, .docx, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="hidden" onchange="convertGenericFile(this, 'soal-base64-word', 'soal-file-name')">
+                                        <input type="file" id="soal-file-word" accept=".doc, .docx, .docm, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="hidden" onchange="convertGenericFile(this, 'soal-base64-word', 'soal-file-name')">
                                     </label>
                                     <input type="hidden" id="soal-base64-word">
                                 </div>
@@ -1740,11 +1740,11 @@
                                     </div>
                                     <div class="flex-1 w-full min-w-0">
                                         <span class="block text-xs font-black uppercase text-slate-700">File Kisi-Kisi (Word) <span id="kisi-req-word" class="text-red-500">*</span></span>
-                                        <span id="kisi-file-name" class="block text-[10px] text-slate-400 truncate mt-0.5">Maks. 5MB (.doc, .docx)</span>
+                                        <span id="kisi-file-name" class="block text-[10px] text-slate-400 truncate mt-0.5">Maks. 5MB (.doc, .docx, .docm)</span>
                                     </div>
                                     <label class="shrink-0 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest cursor-pointer shadow-md transition-transform hover:-translate-y-0.5 active:scale-95 w-full md:w-auto text-center">
                                         Pilih File
-                                        <input type="file" id="soal-file-kisi" accept=".doc, .docx, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="hidden" onchange="convertGenericFile(this, 'soal-base64-kisi', 'kisi-file-name')">
+                                        <input type="file" id="soal-file-kisi" accept=".doc, .docx, .docm, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="hidden" onchange="convertGenericFile(this, 'soal-base64-kisi', 'kisi-file-name')">
                                     </label>
                                     <input type="hidden" id="soal-base64-kisi">
                                 </div>
@@ -1756,7 +1756,7 @@
                                     </div>
                                     <div class="flex-1 w-full min-w-0">
                                         <span class="block text-xs font-black uppercase text-slate-700">Kunci Soal (Excel) <span id="kunci-req-word" class="text-red-500">*</span></span>
-                                        <span id="kunci-file-name" class="block text-[10px] text-slate-400 truncate mt-0.5">Maks. 5MB (.xls, .xlsx)</span>
+                                        <span id="kunci-file-name" class="block text-[10px] text-slate-400 truncate mt-0.5">Maks. 5MB (.xls, .xlsx, .xlsm)</span>
                                     </div>
                                     <label class="shrink-0 bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest cursor-pointer shadow-md transition-transform hover:-translate-y-0.5 active:scale-95 w-full md:w-auto text-center">
                                         Pilih File
@@ -2248,7 +2248,8 @@
             ['word', 'kisi', 'kunci'].forEach(type => {
                 document.getElementById(`soal-file-${type}`).value = '';
                 document.getElementById(`soal-base64-${type}`).value = '';
-                document.getElementById(`${type === 'word' ? 'soal' : type}-file-name`).textContent = 'Maks. 5MB (.doc/.xls)';
+                let extHint = type === 'kunci' ? '.xls, .xlsx, .xlsm' : '.doc, .docx, .docm';
+                document.getElementById(`${type === 'word' ? 'soal' : type}-file-name`).textContent = `Maks. 5MB (${extHint})`;
                 document.getElementById(`${type === 'word' ? 'soal' : type}-file-name`).className = "block text-[10px] text-slate-400 truncate mt-0.5";
                 
                 document.getElementById(`soal-file-${type}`).disabled = false;
@@ -5951,7 +5952,7 @@
                         <div class="flex flex-col md:flex-row gap-4 items-end">
                             <div class="flex-1 w-full">
                                 <label class="text-[10px] uppercase font-black text-slate-500 block mb-2">Keterangan / Caption Foto</label>
-                                <input type="text" id="doc-caption" placeholder="Contoh: Suasana Ujian Sesi 1" class="w-full p-3 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-green-600 outline-none transition">
+                                <input type="text" id="doc-caption" placeholder="Contoh: R.01_0306_FARIDA" class="w-full p-3 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-green-600 outline-none transition">
                             </div>
                             <div class="flex-1 w-full">
                                 <label class="text-[10px] uppercase font-black text-slate-500 block mb-2">Pilih Foto (Max 2MB)</label>
@@ -6158,20 +6159,20 @@
                     
                     <div class="bg-blue-50 border border-blue-200 p-8 rounded-2xl text-center shadow-sm">
                         <div class="flex justify-center items-center gap-6 mb-4">
-                            <img src="https://lh3.googleusercontent.com/d/1qSrBDVRQfZjNoPGZt8IUyfzbveAM5gEN=w256" class="w-20 h-20 object-contain" alt="Logo Jatim">
-                            <img src="${CONFIG.LOGO_URL}" class="w-20 h-20 object-contain" alt="Logo SiGu">
+                            <img src="https://drive.google.com/thumbnail?id=1qSrBDVRQfZjNoPGZt8IUyfzbveAM5gEN&sz=w256" class="w-20 h-20 object-contain" alt="Logo Jatim">
+                            <img src="https://drive.google.com/thumbnail?id=1BqLTq6mgStBOtbV8eWUwgmuvlsqjsqtx&sz=w256" class="w-20 h-20 object-contain" alt="Logo SiGu">
                         </div>
-                        <h3 class="text-xl font-black uppercase text-blue-900 mb-2 tracking-wide">PENGESAHAN LAPORAN KEGIATAN</h3>
-                        <p class="text-sm font-bold text-blue-800 uppercase">Sistem Informasi Guru (SiGu) SMANSaTu</p>
+                        <h3 class="text-xl font-black uppercase text-blue-900 mb-2 tracking-wide">BERITA ACARA KEGIATAN</h3>
+                        <p class="text-sm font-bold text-blue-800 uppercase">ASESMEN SUMATIF AKHIR TAHUN (ASAT)</p>
                         <div class="mt-6 pt-6 border-t border-blue-200 flex flex-col justify-center items-center text-xs font-black text-slate-700 uppercase tracking-widest">
                             <div class="text-center">
-                                <p class="mb-3 text-slate-500">Disahkan Oleh:</p>
-                                <p class="text-blue-700 leading-relaxed">an. Dinas Pendidikan Provinsi Jawa Timur<br>Cabang Dinas Pendidikan Wilayah Bojonegoro - Tuban<br>Kepala SMA Negeri 1 Tuban</p>
+                                <!--p class="mb-3 text-slate-500">Kepala Sekolah:</p-->
+                                <p class="text-blue-700 leading-relaxed">Dinas Pendidikan Provinsi Jawa Timur<br>Cabang Dinas Pendidikan Wilayah Bojonegoro - Tuban<br>Kepala SMA Negeri 1 Tuban</p>
                                 <div class="my-4 flex justify-center">
-                                    <img src="https://drive.google.com/thumbnail?id=1Sgn6QVYeqtue_4h-N9jba1xp8n3C49ju&sz=w200" alt="QR Code Pengesahan" class="w-20 h-20 mix-blend-multiply">
+                                    <img src="https://drive.google.com/thumbnail?id=1KJxO2D3e60GxUr9ZTU07IKTI9THL4faW&sz=w200" alt="QR Code Pengesahan" class="w-20 h-20 mix-blend-multiply">
                                 </div>
-                                <p class="text-blue-900 font-black underline text-sm normal-case">H. ABDUL AZIZ, S.Pd.</p>
-                                <p class="text-blue-700 mt-1">NIP. 19680630 200604 1 004</p>
+                                <p class="text-blue-900 font-black underline text-sm normal-case">SYAIFUL ANNAS, M.Pd.</p>
+                                <p class="text-blue-700 mt-1">NIP. 196703221998021003</p>
                             </div>
                         </div>
                     </div>
@@ -6248,6 +6249,172 @@
                 </div>
             `;
             if (window.lucide) lucide.createIcons();
+        }
+
+        function updateLaporanRuang() {
+            const ruang = document.getElementById('laporan-ruang-select').value;
+            const tbody = document.getElementById('laporan-ruang-body');
+            const btnSubmit = document.getElementById('btn-submit-kehadiran');
+            
+            if (!ruang) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-10 text-center text-slate-400 font-bold italic">Silakan pilih ruang ujian terlebih dahulu.</td></tr>`;
+                if (btnSubmit) btnSubmit.classList.add('hidden');
+                return;
+            }
+
+            let data = (window.laporanData || []).filter(p => String(p.Ruang || p.ruang || "-").toUpperCase().startsWith(ruang + "-") || String(p.Ruang || p.ruang || "-").toUpperCase() === ruang);
+            
+            data.sort((a, b) => {
+                let nA = (a["Nama Lengkap"] || '').toUpperCase();
+                let nB = (b["Nama Lengkap"] || '').toUpperCase();
+                return nA.localeCompare(nB);
+            });
+
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-10 text-center text-slate-400 font-bold italic">Tidak ada peserta di ruang ini.</td></tr>`;
+                if (btnSubmit) btnSubmit.classList.add('hidden');
+                return;
+            }
+
+            tbody.innerHTML = data.map((p, idx) => `
+                <tr class="hover:bg-slate-50 transition-colors" data-nisn="${p.NISN || ''}" data-nama="${(p["Nama Lengkap"] || '').replace(/"/g, '&quot;')}" data-kelas="${p["Tingkat Kelas"] || p.kelas || p.Kelas || ''}" data-instansi="${(p["Sekolah Asal"] || '').replace(/"/g, '&quot;')}">
+                    <td class="p-3 border-b border-slate-100 text-center text-xs text-slate-500">${idx + 1}</td>
+                    <td class="p-3 border-b border-slate-100 text-left text-xs font-bold uppercase text-slate-800">${p["Nama Lengkap"] || '-'}</td>
+                    <td class="p-3 border-b border-slate-100 text-left text-xs uppercase text-slate-600">${p["Sekolah Asal"] || '-'}</td>
+                    <td class="p-3 border-b border-slate-100 text-center">
+                        <select class="kehadiran-select w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-600">
+                            <option value="Hadir" class="text-green-600 font-bold" selected>Hadir</option>
+                            <option value="Ijin" class="text-amber-600 font-bold">Ijin</option>
+                            <option value="Tidak Hadir" class="text-red-600 font-bold">Tidak Hadir</option>
+                        </select>
+                    </td>
+                </tr>
+            `).join('');
+            if (btnSubmit) btnSubmit.classList.remove('hidden');
+        }
+
+        async function submitLaporanKehadiran() {
+            const ruang = document.getElementById('laporan-ruang-select').value;
+            if (!ruang) return showAlert('Peringatan', 'Pilih ruang ujian terlebih dahulu.', 'error');
+            
+            const rows = document.querySelectorAll('#laporan-ruang-body tr[data-nisn]');
+            let attendanceData = [];
+            
+            rows.forEach(tr => {
+                const status = tr.querySelector('.kehadiran-select').value;
+                if (status !== 'Hadir') { 
+                    attendanceData.push({
+                        nisn: tr.dataset.nisn,
+                        nama: tr.dataset.nama,
+                        kelas: tr.dataset.kelas,
+                        instansi: tr.dataset.instansi,
+                        ruang: ruang,
+                        status: status
+                    });
+                }
+            });
+            
+            if (attendanceData.length === 0) {
+                const proceed = confirm('Semua peserta di ruangan ini berstatus Hadir. Tetap lanjutkan menyimpan?');
+                if (!proceed) return;
+            }
+
+            setLoading(true);
+            try {
+                const res = await callGAS({ action: 'submitKehadiran', ruang: ruang, data: attendanceData, uploaderName: currentUser ? currentUser.name : 'Guru Pengawas' });
+                if (res && res.result === 'success') {
+                    showAlert('Sukses', 'Data peserta yang tidak hadir berhasil disimpan ke sistem.', 'success');
+                } else {
+                    showAlert('Gagal', res.message || 'Gagal menyimpan data kehadiran.', 'error');
+                }
+            } catch(e) {
+                showAlert('Ralat', 'Terjadi kesalahan jaringan saat menyimpan.', 'error');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        function updateLaporanRuang() {
+            const ruang = document.getElementById('laporan-ruang-select').value;
+            const tbody = document.getElementById('laporan-ruang-body');
+            const btnSubmit = document.getElementById('btn-submit-kehadiran');
+            
+            if (!ruang) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-10 text-center text-slate-400 font-bold italic">Silakan pilih ruang ujian terlebih dahulu.</td></tr>`;
+                if (btnSubmit) btnSubmit.classList.add('hidden');
+                return;
+            }
+
+            let data = (window.laporanData || []).filter(p => String(p.Ruang || p.ruang || "-").toUpperCase().startsWith(ruang + "-") || String(p.Ruang || p.ruang || "-").toUpperCase() === ruang);
+            
+            data.sort((a, b) => {
+                let nA = (a["Nama Lengkap"] || '').toUpperCase();
+                let nB = (b["Nama Lengkap"] || '').toUpperCase();
+                return nA.localeCompare(nB);
+            });
+
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-10 text-center text-slate-400 font-bold italic">Tidak ada peserta di ruang ini.</td></tr>`;
+                if (btnSubmit) btnSubmit.classList.add('hidden');
+                return;
+            }
+
+            tbody.innerHTML = data.map((p, idx) => `
+                <tr class="hover:bg-slate-50 transition-colors" data-nisn="${p.NISN || ''}" data-nama="${(p["Nama Lengkap"] || '').replace(/"/g, '&quot;')}" data-kelas="${p["Tingkat Kelas"] || p.kelas || p.Kelas || ''}" data-instansi="${(p["Sekolah Asal"] || '').replace(/"/g, '&quot;')}">
+                    <td class="p-3 border-b border-slate-100 text-center text-xs text-slate-500">${idx + 1}</td>
+                    <td class="p-3 border-b border-slate-100 text-left text-xs font-bold uppercase text-slate-800">${p["Nama Lengkap"] || '-'}</td>
+                    <td class="p-3 border-b border-slate-100 text-left text-xs uppercase text-slate-600">${p["Sekolah Asal"] || '-'}</td>
+                    <td class="p-3 border-b border-slate-100 text-center">
+                        <select class="kehadiran-select w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-600">
+                            <option value="Hadir" class="text-green-600 font-bold" selected>Hadir</option>
+                            <option value="Ijin" class="text-amber-600 font-bold">Ijin</option>
+                            <option value="Tidak Hadir" class="text-red-600 font-bold">Tidak Hadir</option>
+                        </select>
+                    </td>
+                </tr>
+            `).join('');
+            if (btnSubmit) btnSubmit.classList.remove('hidden');
+        }
+
+        async function submitLaporanKehadiran() {
+            const ruang = document.getElementById('laporan-ruang-select').value;
+            if (!ruang) return showAlert('Peringatan', 'Pilih ruang ujian terlebih dahulu.', 'error');
+            
+            const rows = document.querySelectorAll('#laporan-ruang-body tr[data-nisn]');
+            let attendanceData = [];
+            
+            rows.forEach(tr => {
+                const status = tr.querySelector('.kehadiran-select').value;
+                if (status !== 'Hadir') { 
+                    attendanceData.push({
+                        nisn: tr.dataset.nisn,
+                        nama: tr.dataset.nama,
+                        kelas: tr.dataset.kelas,
+                        instansi: tr.dataset.instansi,
+                        ruang: ruang,
+                        status: status
+                    });
+                }
+            });
+            
+            if (attendanceData.length === 0) {
+                const proceed = confirm('Semua peserta di ruangan ini berstatus Hadir. Tetap lanjutkan menyimpan?');
+                if (!proceed) return;
+            }
+
+            setLoading(true);
+            try {
+                const res = await callGAS({ action: 'submitKehadiran', ruang: ruang, data: attendanceData, uploaderName: currentUser ? currentUser.name : 'Guru Pengawas' });
+                if (res && res.result === 'success') {
+                    showAlert('Sukses', 'Data peserta yang tidak hadir berhasil disimpan ke sistem.', 'success');
+                } else {
+                    showAlert('Gagal', res.message || 'Gagal menyimpan data kehadiran.', 'error');
+                }
+            } catch(e) {
+                showAlert('Ralat', 'Terjadi kesalahan jaringan saat menyimpan.', 'error');
+            } finally {
+                setLoading(false);
+            }
         }
 
         function updateLiveStatusBar(data) {
@@ -6489,7 +6656,7 @@
             }
             
             try {
-                await Promise.all([fetchSchedule(), fetchSekolahList(), fetchMenuSettings()]);
+                await Promise.all([fetchSchedule(), fetchSekolahList(), fetchMenuSettings(), fetchGlobalLinks()]);
             } catch (error) {
                 console.error("Gagal menyinkronkan data:", error);
             } finally {
