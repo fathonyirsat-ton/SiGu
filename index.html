@@ -1834,6 +1834,26 @@
 
                     <div id="soal-history-container" class="max-w-4xl mx-auto text-left hidden animate-slide-right">
                         <div class="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm mt-4">
+                        ${currentUser.role === 'Admin' ? `
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100 mt-4 mb-4">
+                            <div>
+                                <label class="text-[9px] font-black uppercase text-slate-400 block mb-1.5 ml-1">Filter Jenis Asesmen</label>
+                                <select id="filter-soal-ja" onchange="applySoalHistoryFilters()" class="w-full p-3 bg-white border border-slate-200 rounded-xl text-xs font-bold focus:ring-2 focus:ring-blue-600 outline-none transition cursor-pointer text-slate-700">
+                                    <option value="">Semua Jenis</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-black uppercase text-slate-400 block mb-1.5 ml-1">Cari Mata Pelajaran</label>
+                                <input type="text" id="filter-soal-mapel" oninput="applySoalHistoryFilters()" class="w-full p-3 bg-white border border-slate-200 rounded-xl text-xs font-bold focus:ring-2 focus:ring-blue-600 outline-none transition text-slate-700" placeholder="Ketik mapel...">
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-black uppercase text-slate-400 block mb-1.5 ml-1">Cari Nama Guru</label>
+                                <input type="text" id="filter-soal-guru" oninput="applySoalHistoryFilters()" class="w-full p-3 bg-white border border-slate-200 rounded-xl text-xs font-bold focus:ring-2 focus:ring-blue-600 outline-none transition text-slate-700" placeholder="Ketik nama guru...">
+                            </div>
+                        </div>
+                        ` : ''}
+                        
+                        <div class="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm ${currentUser.role === 'Admin' ? '' : 'mt-4'}">
                             <table class="w-full border-collapse text-sm">
                                 <thead class="bg-[#10141d] text-white border-b">
                                     <tr>
@@ -2035,12 +2055,38 @@
                 if (res && res.result === 'success') {
                     globalBankSoal = res.data || [];
                     renderBankSoalHistory(globalBankSoal);
+                    if (currentUser.role === 'Admin') populateSoalHistoryFilters();
+                    applySoalHistoryFilters();
                 } else {
                     if (tbody) tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-red-500 font-bold">Gagal memuat riwayat.</td></tr>`;
                 }
             } catch (e) {
                 if (tbody) tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-red-500 font-bold">Terjadi kesalahan jaringan.</td></tr>`;
             }
+        }
+        
+        function populateSoalHistoryFilters() {
+            const jaSelect = document.getElementById('filter-soal-ja');
+            if (jaSelect && globalBankSoal) {
+                const uniqueJA = [...new Set(globalBankSoal.map(item => item.jenis_asesmen).filter(Boolean))].sort();
+                const currentVal = jaSelect.value;
+                jaSelect.innerHTML = '<option value="">Semua Jenis</option>' + uniqueJA.map(ja => `<option value="${ja}">${ja}</option>`).join('');
+                if (uniqueJA.includes(currentVal)) jaSelect.value = currentVal;
+            }
+        }
+
+        function applySoalHistoryFilters() {
+            if (!globalBankSoal) return;
+            let filtered = globalBankSoal;
+            if (currentUser.role === 'Admin') {
+                const filterJA = document.getElementById('filter-soal-ja') ? document.getElementById('filter-soal-ja').value : '';
+                const filterMapel = document.getElementById('filter-soal-mapel') ? document.getElementById('filter-soal-mapel').value.toLowerCase() : '';
+                const filterGuru = document.getElementById('filter-soal-guru') ? document.getElementById('filter-soal-guru').value.toLowerCase() : '';
+                
+                filtered = globalBankSoal.filter(item => (filterJA === '' || item.jenis_asesmen === filterJA) &&
+                    (filterMapel === '' || (item.mapel || '').toLowerCase().includes(filterMapel)) && (filterGuru === '' || (item.uploader || '').toLowerCase().includes(filterGuru)));
+            }
+            renderBankSoalHistory(filtered);
         }
 
         function renderBankSoalHistory(data) {
